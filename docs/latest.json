@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T13:25:59.781059+00:00",
+  "generated_at": "2026-11-09T20:49:34.952710+00:00",
   "timezone": "Europe/Lisbon",
   "mode": "daily",
   "note": "Research only; no trading. Fair values require verified manually sourced estimates. No AI API call is made. News/earnings are not monitored in this version.",
@@ -48,52 +48,76 @@
       "name": "Alphabet",
       "owned": false,
       "quantity": null,
-      "quote": null,
+      "quote": {
+        "price": 289.15,
+        "currency": "USD",
+        "as_of": "2026-11-09T14:30:00+00:00",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?range=5d&interval=1d",
+        "type": "delayed_or_last_close"
+      },
       "fair_value": null,
       "assessment": {
-        "label": "DADOS INSUFICIENTES",
+        "label": "SEM FAIR VALUE VERIFICADO",
         "discount_pct": null
       },
-      "error": "Modo de teste sem dados externos"
+      "error": null
     },
     {
       "symbol": "SPGI",
       "name": "S&P Global",
       "owned": false,
       "quantity": null,
-      "quote": null,
+      "quote": {
+        "price": 472.85,
+        "currency": "USD",
+        "as_of": "2026-11-09T14:30:00+00:00",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/SPGI?range=5d&interval=1d",
+        "type": "delayed_or_last_close"
+      },
       "fair_value": null,
       "assessment": {
-        "label": "DADOS INSUFICIENTES",
+        "label": "SEM FAIR VALUE VERIFICADO",
         "discount_pct": null
       },
-      "error": "Modo de teste sem dados externos"
+      "error": null
     },
     {
       "symbol": "V",
       "name": "Visa",
       "owned": false,
       "quantity": null,
-      "quote": null,
+      "quote": {
+        "price": 423.3,
+        "currency": "USD",
+        "as_of": "2026-11-09T14:30:00+00:00",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/V?range=5d&interval=1d",
+        "type": "delayed_or_last_close"
+      },
       "fair_value": null,
       "assessment": {
-        "label": "DADOS INSUFICIENTES",
+        "label": "SEM FAIR VALUE VERIFICADO",
         "discount_pct": null
       },
-      "error": "Modo de teste sem dados externos"
+      "error": null
     },
     {
       "symbol": "SU.PA",
       "name": "Schneider Electric",
       "owned": false,
       "quantity": null,
-      "quote": null,
+      "quote": {
+        "price": 234.4,
+        "currency": "EUR",
+        "as_of": "2026-11-09T08:00:00+00:00",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/SU.PA?range=5d&interval=1d",
+        "type": "delayed_or_last_close"
+      },
       "fair_value": null,
       "assessment": {
-        "label": "DADOS INSUFICIENTES",
+        "label": "SEM FAIR VALUE VERIFICADO",
         "discount_pct": null
       },
-      "error": "Modo de teste sem dados externos"
+      "error": null
     },
     {
       "symbol": "ROG.SW",
@@ -106,8 +130,8 @@
         "label": "DADOS INSUFICIENTES",
         "discount_pct": null
       },
-      "error": "Modo de teste sem dados externos"
+      "error": "Falha na fonte de preços: HTTPError"
     }
   ],
-  "claude_commentary": "Modo de teste: sem chamada à API."
+  "claude_commentary": "Claude API não configurada; análise baseada apenas em regras."
 }
