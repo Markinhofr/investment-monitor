@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-11-09T13:25:59.781059+00:00",
+  "timezone": "Europe/Lisbon",
+  "mode": "daily",
+  "note": "Research only; no trading. Fair values require verified manually sourced estimates. No AI API call is made. News/earnings are not monitored in this version.",
+  "positions": [
+    {
+      "symbol": "VWCE",
+      "name": "FTSE All-World UCITS Acc",
+      "owned": true,
+      "quantity": null,
+      "quote": null,
+      "fair_value": null,
+      "assessment": {
+        "label": "DADOS INSUFICIENTES",
+        "discount_pct": null
+      },
+      "error": "Ticker por confirmar"
+    },
+    {
+      "symbol": "EM_SMALL_CAP_UNVERIFIED",
+      "name": "MSCI Emerging Markets Small Cap ETF",
+      "owned": true,
+      "quantity": null,
+      "quote": null,
+      "fair_value": null,
+      "assessment": {
+        "label": "DADOS INSUFICIENTES",
+        "discount_pct": null
+      },
+      "error": "Ticker por confirmar"
+    },
+    {
+      "symbol": "SEMICONDUCTORS_UNVERIFIED",
+      "name": "Global Semiconductors ETF",
+      "owned": true,
+      "quantity": null,
+      "quote": null,
+      "fair_value": null,
+      "assessment": {
+        "label": "DADOS INSUFICIENTES",
+        "discount_pct": null
+      },
+      "error": "Ticker por confirmar"
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "owned": false,
+      "quantity": null,
+      "quote": null,
+      "fair_value": null,
+      "assessment": {
+        "label": "DADOS INSUFICIENTES",
+        "discount_pct": null
+      },
+      "error": "Modo de teste sem dados externos"
+    },
+    {
+      "symbol": "SPGI",
+      "name": "S&P Global",
+      "owned": false,
+      "quantity": null,
+      "quote": null,
+      "fair_value": null,
+      "assessment": {
+        "label": "DADOS INSUFICIENTES",
+        "discount_pct": null
+      },
+      "error": "Modo de teste sem dados externos"
+    },
+    {
+      "symbol": "V",
+      "name": "Visa",
+      "owned": false,
+      "quantity": null,
+      "quote": null,
+      "fair_value": null,
+      "assessment": {
+        "label": "DADOS INSUFICIENTES",
+        "discount_pct": null
+      },
+      "error": "Modo de teste sem dados externos"
+    },
+    {
+      "symbol": "SU.PA",
+      "name": "Schneider Electric",
+      "owned": false,
+      "quantity": null,
+      "quote": null,
+      "fair_value": null,
+      "assessment": {
+        "label": "DADOS INSUFICIENTES",
+        "discount_pct": null
+      },
+      "error": "Modo de teste sem dados externos"
+    },
+    {
+      "symbol": "ROG.SW",
+      "name": "Roche",
+      "owned": false,
+      "quantity": null,
+      "quote": null,
+      "fair_value": null,
+      "assessment": {
+        "label": "DADOS INSUFICIENTES",
+        "discount_pct": null
+      },
+      "error": "Modo de teste sem dados externos"
+    }
+  ],
+  "claude_commentary": "Modo de teste: sem chamada à API."
+}

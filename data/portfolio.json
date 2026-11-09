@@ -1,0 +1,18 @@
+{
+  "base_currency": "EUR",
+  "profile": "balanced_high_growth",
+  "horizon_years": 30,
+  "target_etf_pct": 75,
+  "target_individual_stocks_pct": 25,
+  "notes": "Quantities, prices and current balances are not verified. Populate before P&L calculations. Watchlist securities are not owned by default.",
+  "positions": [
+    {"symbol":"VWCE", "name":"FTSE All-World UCITS Acc", "type":"ETF", "owned":true, "quantity":null, "average_cost":null, "cost_currency":"EUR", "exchange_symbol_unverified":true},
+    {"symbol":"EM_SMALL_CAP_UNVERIFIED", "name":"MSCI Emerging Markets Small Cap ETF", "type":"ETF", "owned":true, "quantity":null, "average_cost":null, "cost_currency":"EUR", "exchange_symbol_unverified":true},
+    {"symbol":"SEMICONDUCTORS_UNVERIFIED", "name":"Global Semiconductors ETF", "type":"ETF", "owned":true, "quantity":null, "average_cost":null, "cost_currency":"EUR", "exchange_symbol_unverified":true},
+    {"symbol":"GOOGL", "name":"Alphabet", "type":"STOCK", "owned":false, "quantity":null, "average_cost":null, "cost_currency":"USD"},
+    {"symbol":"SPGI", "name":"S&P Global", "type":"STOCK", "owned":false, "quantity":null, "average_cost":null, "cost_currency":"USD"},
+    {"symbol":"V", "name":"Visa", "type":"STOCK", "owned":false, "quantity":null, "average_cost":null, "cost_currency":"USD"},
+    {"symbol":"SU.PA", "name":"Schneider Electric", "type":"STOCK", "owned":false, "quantity":null, "average_cost":null, "cost_currency":"EUR"},
+    {"symbol":"ROG.SW", "name":"Roche", "type":"STOCK", "owned":false, "quantity":null, "average_cost":null, "cost_currency":"CHF"}
+  ]
+}
