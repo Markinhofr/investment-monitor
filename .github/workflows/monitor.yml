@@ -1,0 +1,51 @@
+name: Investment monitoring
+on:
+  schedule:
+    - cron: '30 * * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'daily, weekly or auto'
+        required: true
+        default: daily
+        type: choice
+        options: [daily, weekly, auto]
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Determine local schedule
+        id: schedule
+        env:
+          REQUESTED_MODE: ${{ inputs.mode || 'auto' }}
+        run: |
+          python - <<'PY'
+          import os,datetime
+          from zoneinfo import ZoneInfo
+          d=datetime.datetime.now(ZoneInfo('Europe/Lisbon'))
+          mode=os.environ['REQUESTED_MODE']
+          if mode=='auto':
+              mode='daily' if d.hour==22 else ('weekly' if d.weekday()==6 and d.hour==10 else 'skip')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('mode='+mode+'\n')
+          PY
+      - name: Run monitoring
+        if: steps.schedule.outputs.mode != 'skip'
+        env:
+          REPORT_MODE: ${{ steps.schedule.outputs.mode }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python src/monitor.py
+      - name: Commit dashboard
+        if: steps.schedule.outputs.mode != 'skip'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/index.html docs/latest.json
+          git diff --cached --quiet || (git commit -m 'Update investment dashboard' && git push)
