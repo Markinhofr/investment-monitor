@@ -1,0 +1,37 @@
+
+{
+  "version": "2.0",
+  "companies": {
+    "GOOGL": {
+      "name": "Alphabet",
+      "currency": "USD",
+      "revenue": null,
+      "revenue_growth": null,
+      "net_income": null,
+      "free_cash_flow": null,
+      "net_debt": null,
+      "shares_outstanding": null,
+      "operating_margin": null,
+      "pe_ratio": null,
+      "roic": null,
+      "report_date": null,
+      "source": null
+    },
+    "SPGI": {
+      "name": "S&P Global",
+      "currency": "USD"
+    },
+    "V": {
+      "name": "Visa",
+      "currency": "USD"
+    },
+    "SU.PA": {
+      "name": "Schneider Electric",
+      "currency": "EUR"
+    },
+    "ROG.SW": {
+      "name": "Roche",
+      "currency": "CHF"
+    }
+  }
+}
