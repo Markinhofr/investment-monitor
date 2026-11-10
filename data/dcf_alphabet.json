@@ -1,0 +1,31 @@
+{
+  "ticker": "GOOGL",
+  "company": "Alphabet",
+  "currency": "USD",
+  "generated_at": "2026-11-09T23:48:41.829074+00:00",
+  "verified": false,
+  "valuation_ready": false,
+  "signal": "NO_SIGNAL",
+  "method": "DCF_5Y",
+  "warning": "Demonstracao com pressupostos e dados ainda nao validados. Nao usar como recomendacao de investimento.",
+  "scenarios": {
+    "pessimistic": {
+      "fair_value": 70.61,
+      "growth": 0.05,
+      "discount_rate": 0.11,
+      "terminal_growth": 0.02
+    },
+    "base": {
+      "fair_value": 123.02,
+      "growth": 0.1,
+      "discount_rate": 0.09,
+      "terminal_growth": 0.025
+    },
+    "optimistic": {
+      "fair_value": 198.01,
+      "growth": 0.15,
+      "discount_rate": 0.08,
+      "terminal_growth": 0.03
+    }
+  }
+}

@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Investment Monitor — DCF</title>
+<style>
+body {
+  background: #0b1220;
+  color: #f1f5f9;
+  font-family: Arial, sans-serif;
+  padding: 24px;
+}
+main { max-width: 900px; margin: auto; }
+.card {
+  background: #17243a;
+  padding: 20px;
+  border-radius: 14px;
+  margin: 12px 0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+  gap: 12px;
+}
+.value { font-size: 28px; font-weight: bold; }
+small { color: #aabbd0; }
+a { color: #80b7ff; }
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">Voltar ao dashboard</a>
+<h1>Alphabet — Análise Fundamental</h1>
+<p>Modelo DCF de 5 anos</p>
+<div class="card">
+  <strong>Simulação não verificada</strong>
+  <p>Não utilizar como recomendação de compra ou venda.</p>
+</div>
+<div id="results" class="grid">
+  A carregar...
+</div>
+<p id="updated"></p>
+</main>
+<script>
+async function loadDCF() {
+  const container = document.getElementById("results");
+  try {
+    const response = await fetch(
+      "dcf_alphabet.json?ts=" + Date.now()
+    );
+    if (!response.ok) throw new Error("Dados indisponíveis");
+
+    const data = await response.json();
+
+    const labels = {
+      pessimistic: "Pessimista",
+      base: "Base",
+      optimistic: "Otimista"
+    };
+
+    container.textContent = "";
+
+    for (const [key, label] of Object.entries(labels)) {
+      const item = data.scenarios?.[key];
+      if (!item) continue;
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const heading = document.createElement("h3");
+      heading.textContent = label;
+
+      const value = document.createElement("div");
+      value.className = "value";
+      value.textContent =
+        Number(item.fair_value).toFixed(2) + " USD";
+
+      const note = document.createElement("small");
+      note.textContent =
+        "Crescimento: " + (item.growth * 100).toFixed(1) +
+        "% | Desconto: " +
+        (item.discount_rate * 100).toFixed(1) + "%";
+
+      card.append(heading, value, note);
+      container.appendChild(card);
+    }
+
+    document.getElementById("updated").textContent =
+      "Atualizado: " + (data.generated_at || "Desconhecido");
+
+  } catch (error) {
+    container.textContent =
+      "Não foi possível carregar o relatório DCF.";
+  }
+}
+
+loadDCF();
+</script>
+</body>
+</html>
