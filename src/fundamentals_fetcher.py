@@ -145,6 +145,7 @@ def fetch_alphabet():
             'source': SEC_URL, 'retrieved_at': datetime.now(timezone.utc).isoformat(),
             'verified': False,
             'balance_sheet': balance_sheet(facts),
+            'capital_structure': capital_structure(facts),
             'ttm_operating_cash_flow': calculate_ttm(facts, OCF_TAGS, ocf) or ocf,
             'ttm_capex': calculate_ttm(facts, CAPEX_TAGS, capex) or capex}
 
@@ -168,6 +169,21 @@ def balance_sheet(facts):
                 if not x.get('start') and x['end'] == end]
         result[name] = choose(rows, alternatives)
     return result
+
+def capital_structure(facts):
+    cash = latest_instant(facts, ['CashAndCashEquivalentsAtCarryingValue'])
+    if not cash:
+        return {}
+    tags = {
+        'preferred_shares': (['PreferredStockSharesOutstanding'], 'shares'),
+        'preferred_carrying_value': (['ConvertiblePreferredStockNonredeemableOrRedeemableIssuerOptionValue'], 'USD'),
+        'finance_lease_liability': (['FinanceLeaseLiability'], 'USD'),
+        'operating_lease_liability': (['OperatingLeaseLiability'], 'USD'),
+    }
+    return {name: choose([x for x in candidates(facts, names, unit)
+                          if not x.get('start') and x['end'] == cash['end']], names)
+            for name, (names, unit) in tags.items()}
+
 
 if __name__ == '__main__':
     print(json.dumps(fetch_alphabet(), indent=2))

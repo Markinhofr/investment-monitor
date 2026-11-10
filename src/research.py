@@ -1,5 +1,7 @@
 """Fail-closed SEC research pipeline. Review attestations expire with each filing."""
 import math
+import json
+from pathlib import Path
 from datetime import date, datetime, timezone
 from src.dcf import calculate_dcf
 from src.dcf_report import SCENARIOS
@@ -19,7 +21,7 @@ def recent(value, now, days):
         return False
 
 
-def analyze(data, review, now=None):
+def analyze(data, review, now=None, policy=None):
     now = now or date.today()
     errors = []
     balance = data.get('balance_sheet', {})
@@ -95,6 +97,21 @@ def analyze(data, review, now=None):
             and review.get('extraordinary_cash_flows_reviewed') is True
             and review.get('assumptions_approved') is True):
         errors.append('FILING_REVIEW_REQUIRED')
+    # A human attestation cannot add capabilities the model does not implement.
+    structure = data.get('capital_structure', {})
+    preferred = structure.get('preferred_shares')
+    leases = structure.get('finance_lease_liability')
+    for item, unit in ((preferred, 'shares'), (leases, 'USD')):
+        if not valid_record(item, unit) or item['end'] != end or item['value'] < 0:
+            errors.append('CAPITAL_STRUCTURE_NOT_VALIDATED')
+    if preferred and number(preferred.get('value')) and preferred['value'] > 0:
+        errors.append('UNSUPPORTED_PREFERRED_STOCK')
+    if leases and number(leases.get('value')) and leases['value'] > 0:
+        errors.append('LEASE_METHODOLOGY_REQUIRED')
+    if not (review.get('cash_flow_methodology_approved') is True and review.get('methodology_rationale')):
+        errors.append('CASH_FLOW_METHODOLOGY_REVIEW_REQUIRED')
+    if not (policy or {}).get('valuation_enabled') is True:
+        errors.append('VALUATION_DISABLED_BY_POLICY')
     normalized = review.get('normalized_fcf')
     if not number(normalized, True) or not number(fcf, True) or normalized > fcf or not review.get('normalization_rationale'):
         errors.append('NORMALIZED_FCF_NOT_VALIDATED')
@@ -126,11 +143,20 @@ def analyze(data, review, now=None):
             'warning': 'DCF sensível aos pressupostos. OCF menos CapEx é um proxy simplificado; não é FCFF puro. Ganhos contabilísticos extraordinários não são extrapolados.'}
 
 
+def load_policy():
+    try:
+        path = Path(__file__).resolve().parents[1] / 'data/valuation_policy.json'
+        policy = json.loads(path.read_text())
+        return policy if isinstance(policy, dict) else {}
+    except (OSError, ValueError):
+        return {}  # Missing/corrupt configuration must never enable valuations.
+
+
 def collect(review, offline=False):
     try:
         if offline:
             raise RuntimeError('OFFLINE')
-        return analyze(fetch_alphabet(), review)
+        return analyze(fetch_alphabet(), review, policy=load_policy())
     except Exception as error:
         report = analyze({}, {})
         report.update(data_status='DATA_UNAVAILABLE', data_error=type(error).__name__)

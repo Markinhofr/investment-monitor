@@ -1,14 +1,18 @@
 {
   "ticker": "GOOGL",
   "currency": "USD",
-  "generated_at": "2026-11-10T23:23:55.358043+00:00",
+  "generated_at": "2026-11-10T23:53:19.501480+00:00",
   "verified": false,
   "valuation_ready": false,
   "signal": "NO_SIGNAL",
   "data_status": "VALIDATION_PENDING",
   "errors": [
+    "CASH_FLOW_METHODOLOGY_REVIEW_REQUIRED",
     "FILING_REVIEW_REQUIRED",
-    "NORMALIZED_FCF_NOT_VALIDATED"
+    "LEASE_METHODOLOGY_REQUIRED",
+    "NORMALIZED_FCF_NOT_VALIDATED",
+    "UNSUPPORTED_PREFERRED_STOCK",
+    "VALUATION_DISABLED_BY_POLICY"
   ],
   "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
   "period_end": "2026-09-30",
@@ -82,7 +86,9 @@
     "extraordinary_cash_flows_reviewed": false,
     "assumptions_approved": false,
     "normalized_fcf": null,
-    "normalization_rationale": null
+    "normalization_rationale": null,
+    "cash_flow_methodology_approved": false,
+    "methodology_rationale": null
   },
   "fundamentals": {
     "company": "Alphabet",
@@ -349,6 +355,44 @@
         }
       },
       "verified": false
+    },
+    "capital_structure": {
+      "preferred_shares": {
+        "value": 19000000,
+        "start": null,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "accession": "0001652044-26-000084",
+        "unit": "shares",
+        "tag": "PreferredStockSharesOutstanding"
+      },
+      "preferred_carrying_value": {
+        "value": 18023000000,
+        "start": null,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "accession": "0001652044-26-000084",
+        "unit": "USD",
+        "tag": "ConvertiblePreferredStockNonredeemableOrRedeemableIssuerOptionValue"
+      },
+      "finance_lease_liability": {
+        "value": 3705000000,
+        "start": null,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "accession": "0001652044-26-000084",
+        "unit": "USD",
+        "tag": "FinanceLeaseLiability"
+      },
+      "operating_lease_liability": {
+        "value": 20508000000,
+        "start": null,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "accession": "0001652044-26-000084",
+        "unit": "USD",
+        "tag": "OperatingLeaseLiability"
+      }
     }
   },
   "warning": "DCF sensível aos pressupostos. OCF menos CapEx é um proxy simplificado; não é FCFF puro. Ganhos contabilísticos extraordinários não são extrapolados."

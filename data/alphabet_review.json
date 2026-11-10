@@ -9,5 +9,7 @@
   "extraordinary_cash_flows_reviewed": false,
   "assumptions_approved": false,
   "normalized_fcf": null,
-  "normalization_rationale": null
+  "normalization_rationale": null,
+  "cash_flow_methodology_approved": false,
+  "methodology_rationale": null
 }

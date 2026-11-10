@@ -202,8 +202,12 @@ def build(mode, offline=False, research=None):
         from src.dcf_report import generate_report
         research = generate_report(offline)
     # Alphabet must always use this run's validated DCF, never an older manual value.
+    from src.research import load_policy
+    valuation_enabled = load_policy().get('valuation_enabled') is True
+    if not valuation_enabled:
+        values.clear()
     values.pop('GOOGL', None)
-    if research['valuation_ready']:
+    if research['valuation_ready'] and valuation_enabled:
         values['GOOGL'] = {'value': research['scenarios']['base']['fair_value'],
                            'currency': 'USD', 'source_url': research['source'],
                            'as_of': research['period_end'], 'verified': True, 'valuation_ready': True}
@@ -255,6 +259,8 @@ def build(mode, offline=False, research=None):
     report = {
         "generated_at": now.isoformat(),
         "timezone": "Europe/Lisbon",
+        "version": "2.0",
+        "source_commit": os.getenv("SOURCE_COMMIT"),
         "mode": mode,
         "note": (
             "Research only; no trading. Fair values require validated inputs. "
@@ -285,6 +291,10 @@ def build(mode, offline=False, research=None):
         encoding="utf-8",
     )
 
+    (docs / 'release.json').write_text(json.dumps({
+        'version': '2.0', 'source_commit': report['source_commit'],
+        'generated_at': report['generated_at'], 'valuation_ready': research['valuation_ready'],
+        'data_status': research['data_status']}, indent=2), encoding='utf-8')
     cards = []
 
     for item in rows:
@@ -339,6 +349,7 @@ def build(mode, offline=False, research=None):
 <html lang="pt">
 <head>
 <meta charset="utf-8">
+<meta name="investment-monitor-version" content="2.0">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="refresh" content="1800">
 <title>Personal Investment Analyst</title>
@@ -571,8 +582,8 @@ def main():
         print('Telegram: sem alterações relevantes')
         return
     digest = hashlib.sha256(message.split('Lisboa', 1)[-1].encode()).hexdigest()
-    if digest == state.get('digest') or offline:
-        print('Telegram: suprimido (duplicado ou teste offline)')
+    if digest == state.get('digest') or offline or os.getenv('NOTIFICATIONS_ENABLED', 'true') != 'true':
+        print('Telegram: suprimido (duplicado, offline ou notificações desativadas)')
         return
     try:
         status = telegram(message)

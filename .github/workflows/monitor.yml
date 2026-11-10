@@ -18,16 +18,25 @@ concurrency:
   cancel-in-progress: false
 jobs:
   test:
+    if: github.event_name != 'schedule' || vars.MONITOR_AUTOMATION_ENABLED == 'true'
+    outputs:
+      tested_sha: ${{ steps.revision.outputs.sha }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.ref || 'investment-v2' }}
+      - id: revision
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s tests -v
   update:
-    if: github.event_name != 'pull_request' && (github.event_name == 'schedule' || github.ref == 'refs/heads/investment-v2')
+    if: github.event_name != 'pull_request' && (github.event_name == 'schedule' || github.ref == 'refs/heads/investment-v2' || github.ref == 'refs/heads/main')
     needs: test
+    outputs:
+      pages_ready: ${{ steps.pages.outcome == 'success' }}
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -35,6 +44,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: investment-v2
+      - name: Require exactly the tested revision
+        env:
+          TESTED_SHA: ${{ needs.test.outputs.tested_sha }}
+        run: test "$(git rev-parse HEAD)" = "$TESTED_SHA"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -56,6 +69,8 @@ jobs:
         if: steps.schedule.outputs.mode != 'skip'
         env:
           REPORT_MODE: ${{ steps.schedule.outputs.mode }}
+          SOURCE_COMMIT: ${{ needs.test.outputs.tested_sha }}
+          NOTIFICATIONS_ENABLED: ${{ vars.MONITOR_NOTIFICATIONS_ENABLED || 'false' }}
           SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -73,3 +88,28 @@ jobs:
             git commit -m 'Update investment-v2 dashboard and notification state'
             git push origin HEAD:investment-v2
           fi
+      - name: Validate dashboard artifact
+        env:
+          EXPECTED_SOURCE_COMMIT: ${{ needs.test.outputs.tested_sha }}
+        if: success() && steps.schedule.outputs.mode != 'skip'
+        run: python scripts/check_dashboard.py
+      - name: Upload Pages artifact (publication opt-in)
+        id: pages
+        if: success() && steps.schedule.outputs.mode != 'skip' && vars.PAGES_DEPLOY_ENABLED == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && needs.update.outputs.pages_ready == 'true'
+    needs: update
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the validated artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
