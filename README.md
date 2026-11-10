@@ -60,7 +60,7 @@ Limitações de ativação verificadas nesta implementação:
 
 1. GitHub só agenda workflows que existem na branch predefinida (atualmente `main`). Como esta alteração permanece exclusivamente em `investment-v2`, o novo agendamento só pode ficar ativo após decisão do proprietário sobre integração/configuração da branch predefinida. O cron anterior em main não foi alterado por este trabalho.
 2. Pages está atualmente configurado para `main:/docs`. Os ficheiros gerados em `investment-v2` ficam prontos para revisão, mas não substituem o site público enquanto a origem de Pages ou a integração não for decidida. O link Telegram refere o site publicado, que pode ainda mostrar a versão anterior. Não se alterou essa configuração automaticamente.
-3. A API disponível não permitiu listar os nomes dos Secrets (403). Não se assume que estejam configurados; devem ser confirmados por uma execução no runner.
+3. A API disponível não permitiu listar os nomes dos Secrets (403), mas a execução real no runner confirmou recolha SEC e envio Telegram com os Secrets existentes, sem revelar valores.
 
 Para confirmar: Actions → **Investment monitoring v2** → Run workflow → branch `investment-v2` → `daily`. Verificar testes, estado SEC/DCF no JSON, mensagem Telegram e commit apenas na branch autorizada. Reexecutar sem alterações deve suprimir alertas repetidos. Para validar visualmente antes de Pages, executar `python -m http.server 8000 --directory docs` e abrir o endereço local. Abrir `dcf.html` por HTTP, pois usa fetch de JSON.
 
@@ -69,3 +69,7 @@ Para confirmar: Actions → **Investment monitoring v2** → Run workflow → br
 Rever os dados no 10-Q/10-K original a cada nova entrega, classes de ações, novas tags SEC, dívida, extraordinários e pressupostos. Investigar `DATA_UNAVAILABLE` e `errors` sem reutilizar silenciosamente o fair value anterior. Yahoo Chart é público e não oficial, pode limitar/falhar e não tem SLA; preços são atrasados/último fecho. A ausência de dados não desencadeia oportunidades. SEC também pode responder 403/429; uma execução posterior volta a tentar. Não há API paga de substituição.
 
 O dashboard e os JSON são públicos quando publicados. Não adicionar quantidades/custos privados. Não há corretora, P&L fiável sem posições confirmadas, notícias gerais, dados fundamentais automatizados das outras empresas ou armazenamento privado. Actions/Pages estão sujeitos aos limites e políticas do GitHub.
+
+## Validação realizada nesta entrega
+
+42 testes passaram localmente e no runner GitHub. Chromium confirmou dashboard móvel, os três cenários sem fair value quando bloqueados e tratamento de erro HTTP sem erros JavaScript. A execução [42922834104](https://github.com/Markinhofr/investment-monitor/actions/runs/42922834104) terminou com sucesso: recolheu a demonstração SEC de 2026-09-30 (accession 0001652044-26-000084), reconciliou FCF TTM e enviou Telegram. Estado esperado: `VALIDATION_PENDING`, exclusivamente por revisão da entrega e FCF normalizado ainda não aprovados. Não se publicou fair value ou sinal de compra. Os conflitos do PR com ficheiros gerados foram resolvidos na investment-v2, preservando o dashboard da v2; main não foi alterada.

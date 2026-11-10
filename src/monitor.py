@@ -10,6 +10,10 @@ import pathlib
 from zoneinfo import ZoneInfo
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+# Preserve the original direct-script entry point alongside python -m src.monitor.
+if __package__ in (None, ''):
+    import sys
+    sys.path.insert(0, str(ROOT))
 TZ = ZoneInfo("Europe/Lisbon")
 
 WATCH = {
