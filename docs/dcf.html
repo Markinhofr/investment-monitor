@@ -35,7 +35,7 @@ a { color: #80b7ff; }
 <h1>Alphabet — Análise Fundamental</h1>
 <p>Modelo DCF de 5 anos</p>
 <div class="card">
-  <strong>Simulação não verificada</strong>
+  <strong id="validation-status">Validação pendente</strong>
   <p>Não utilizar como recomendação de compra ou venda.</p>
 </div>
 <div id="results" class="grid">
@@ -65,6 +65,8 @@ async function loadDCF() {
 
     const data = await response.json();
 
+    document.getElementById('validation-status').textContent = data.valuation_ready
+      ? 'Dados e pressupostos revistos — estimativa DCF' : 'Validação pendente — sem fair value ou sinal';
     const labels = {
       pessimistic: "Pessimista",
       base: "Base",
@@ -86,20 +88,33 @@ async function loadDCF() {
       const value = document.createElement("div");
       value.className = "value";
       value.textContent =
-        (item.fair_value == null ? "Avaliação pendente" : Number(item.fair_value).toFixed(2) + " USD");
+        (!data.valuation_ready || !data.verified || item.fair_value == null ? "Avaliação pendente" : Number(item.fair_value).toFixed(2) + " USD");
 
       const note = document.createElement("small");
       note.textContent =
         "Crescimento: " + (item.growth * 100).toFixed(1) +
-        "% | Desconto: " +
-        (item.discount_rate * 100).toFixed(1) + "%";
+        "% | Taxa de desconto: " +
+        (item.discount_rate * 100).toFixed(1) + "% | Crescimento terminal: " + (item.terminal_growth * 100).toFixed(1) + "%";
 
-      card.append(heading, value, note);
+      const margin = document.createElement('p');
+      margin.textContent = 'Margem de segurança: ' +
+        (data.valuation_ready && item.margin_of_safety_pct != null ? item.margin_of_safety_pct.toFixed(1) + '%' : 'Indisponível');
+      card.append(heading, value, note, margin);
       container.appendChild(card);
     }
 
     document.getElementById("updated").textContent =
-      "Atualizado: " + (data.generated_at || "Desconhecido");
+      "Atualizado: " + (data.generated_at || "Desconhecido") + " | " + data.data_status;
+    const details = document.createElement('pre');
+    details.style.whiteSpace = 'pre-wrap';
+    details.textContent = JSON.stringify({
+      estado: data.data_status, bloqueios: data.errors, periodo: data.period_end,
+      fcf_ttm_validado: data.fcf_ttm?.verified ? data.fcf_ttm.value : null,
+      fcf_normalizado: data.fcf_normalized, divida_liquida: data.net_debt,
+      acoes_todas_classes: data.shares_outstanding,
+      revisao: data.review, fonte: data.source, limitacoes: data.warning
+    }, null, 2);
+    container.after(details);
 
   } catch (error) {
     container.textContent =
@@ -116,7 +131,7 @@ fetch("dcf_alphabet.json")
   .then(data => {
     const fcf = data.fcf_ttm;
     document.getElementById("fcf-value").textContent =
-      fcf && Number.isFinite(fcf.value)
+      fcf && fcf.verified && Number.isFinite(fcf.value)
         ? (fcf.value / 1e9).toFixed(3) + " mil milhões USD"
         : "Dados indisponíveis";
     document.getElementById("fcf-date").textContent =

@@ -1,5 +1,7 @@
 
 import os
+import math
+import hashlib
 import json
 import datetime
 import urllib.request
@@ -56,6 +58,8 @@ def quote(symbol):
         raise ValueError("No closing prices")
 
     timestamp, price = pairs[-1]
+    if not math.isfinite(price) or price <= 0 or not meta.get('currency'):
+        raise ValueError('Invalid quote')
     return {
         "price": round(price, 4),
         "currency": meta.get("currency"),
@@ -73,35 +77,25 @@ def load_json(path, default):
     return default
 
 
+def valid_fair_value(fv):
+    from src.research import number, recent
+    today = datetime.datetime.now(datetime.timezone.utc).date()
+    return bool(isinstance(fv, dict) and fv.get('verified') is True
+                and fv.get('valuation_ready') is True and number(fv.get('value'), True)
+                and recent(fv.get('as_of'), today, 120) and fv.get('source_url'))
+
+
 def assess(q, fv):
-    if not q:
-        return {"label": "DADOS INSUFICIENTES", "discount_pct": None}
-
-    if (
-        not fv
-        or not isinstance(fv.get("value"), (int, float))
-        or fv["value"] <= 0
-        or fv.get("currency") != q["currency"]
-        or not fv.get("source_url")
-        or not fv.get("as_of")
-    ):
-        return {
-            "label": "SEM FAIR VALUE VERIFICADO",
-            "discount_pct": None,
-        }
-
-    discount = (fv["value"] - q["price"]) / fv["value"] * 100
-
-    if discount >= 25:
-        label = "INVESTIGAR COMPRA"
-    elif discount >= 15:
-        label = "ESTUDAR ENTRADA"
-    elif discount >= 0:
-        label = "ACOMPANHAR"
-    else:
-        label = "REVER VALORIZAÇÃO"
-
-    return {"label": label, "discount_pct": round(discount, 1)}
+    from src.research import number, recent
+    if not q or not number(q.get('price'), True) or not recent(
+            q.get('as_of'), datetime.datetime.now(datetime.timezone.utc).date(), 5):
+        return {'label': 'DADOS INSUFICIENTES', 'discount_pct': None}
+    if not valid_fair_value(fv) or fv.get('currency') != q.get('currency'):
+        return {'label': 'SEM FAIR VALUE VERIFICADO', 'discount_pct': None}
+    discount = (fv['value'] - q['price']) / fv['value'] * 100
+    label = ('INVESTIGAR COMPRA' if discount >= 25 else 'ESTUDAR ENTRADA' if discount >= 15
+             else 'ACOMPANHAR' if discount >= 0 else 'REVER VALORIZAÇÃO')
+    return {'label': label, 'discount_pct': round(discount, 1)}
 
 
 def claude_commentary(report):
@@ -191,7 +185,7 @@ def telegram(message):
         return "sent" if json.load(response).get("ok") else "failed"
 
 
-def build(mode, offline=False):
+def build(mode, offline=False, research=None):
     now = datetime.datetime.now(datetime.timezone.utc)
 
     portfolio = load_json(
@@ -200,6 +194,15 @@ def build(mode, offline=False):
     )
     values = load_json(ROOT / "data/fair_values.json", {})
 
+    if research is None:
+        from src.dcf_report import generate_report
+        research = generate_report(offline)
+    # Alphabet must always use this run's validated DCF, never an older manual value.
+    values.pop('GOOGL', None)
+    if research['valuation_ready']:
+        values['GOOGL'] = {'value': research['scenarios']['base']['fair_value'],
+                           'currency': 'USD', 'source_url': research['source'],
+                           'as_of': research['period_end'], 'verified': True, 'valuation_ready': True}
     rows = []
 
     for pos in portfolio["positions"]:
@@ -222,7 +225,8 @@ def build(mode, offline=False):
                     + type(exc).__name__
                 )
 
-        fv = values.get(symbol)
+        candidate = values.get(symbol)
+        fv = candidate if valid_fair_value(candidate) else None
         assessment = assess(q, fv)
 
         rows.append({
@@ -236,27 +240,42 @@ def build(mode, offline=False):
             "error": error,
         })
 
+    alphabet_quote = next((x['quote'] for x in rows if x['symbol'] == 'GOOGL'), None)
+    for scenario in research['scenarios'].values():
+        scenario['margin_of_safety_pct'] = assess(alphabet_quote, {
+            'value': scenario['fair_value'], 'currency': 'USD', 'source_url': research['source'],
+            'as_of': research['period_end'], 'verified': research['verified'],
+            'valuation_ready': research['valuation_ready']})['discount_pct']
+    (ROOT / 'docs').mkdir(exist_ok=True)
+    (ROOT / 'docs/dcf_alphabet.json').write_text(json.dumps(research, ensure_ascii=False, indent=2), encoding='utf-8')
     report = {
         "generated_at": now.isoformat(),
         "timezone": "Europe/Lisbon",
         "mode": mode,
         "note": (
-            "Research only; no trading. Fair values require verified "
-            "manually sourced estimates. No AI API call is made. "
-            "News/earnings are not monitored in this version."
+            "Research only; no trading. Fair values require validated inputs. "
+            "Alphabet SEC filings monitored; valuation blocked until validated."
         ),
         "positions": rows,
+        "alphabet": research,
+        "update_status": research["data_status"],
     }
 
     report["claude_commentary"] = (
         claude_commentary(report)
-        if not offline
-        else "Modo de teste: sem chamada à API."
+        if not offline and os.getenv("ENABLE_PAID_COMMENTARY") == "1"
+        else "Comentário pago desativado; análise determinística."
     )
 
     docs = ROOT / "docs"
     docs.mkdir(exist_ok=True)
 
+    history = load_json(docs / 'history.json', [])
+    snapshot = {'generated_at': report['generated_at'], 'status': research['data_status'],
+                'positions': [{'symbol': x['symbol'], 'quote': x['quote'],
+                               'assessment': x['assessment'], 'fair_value': x['fair_value']} for x in rows]}
+    history = (history + [snapshot])[-366:]
+    (docs / 'history.json').write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding='utf-8')
     (docs / "latest.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2),
         encoding="utf-8",
@@ -410,10 +429,17 @@ a { color: #9ac7ff; }
         + "</p>"
         "<p>Dados estruturados: "
         "<a href='latest.json'>latest.json</a>. "
-        "Não são executadas ordens. Alertas de notícias e earnings "
-        "ainda não implementados.</p>"
+        "Não são executadas ordens. Novos resultados da Alphabet são detetados via SEC.</p>"
     )
 
+    page += '<h2>Alphabet — métricas financeiras validadas</h2>'
+    for key, item in research.get('metrics', {}).items():
+        page += '<p>' + html.escape(key + ': ' + str(item['value']) + ' USD · ' + item['end']) + '</p>'
+    page += '<p>FCF TTM: ' + html.escape(str(research['fcf_ttm']['value']) if research['fcf_ttm']['verified'] else 'Pendente de validação') + ' USD</p>'
+    page += '<p>FCF normalizado: ' + html.escape(str(research['fcf_normalized']['value']) if research['valuation_ready'] else 'Pendente de revisão') + ' USD</p>'
+    page += "<h2>Histórico das últimas atualizações</h2><ul>" + ''.join(
+        '<li>' + html.escape(x['generated_at'] + ' · ' + x['status']) + '</li>' for x in history[-10:]) + "</ul><p><a href='history.json'>Histórico completo (JSON)</a></p>"
+    page += "<p>Estado SEC/DCF: " + html.escape(research['data_status']) + "</p>"
     # Ligação permanente para a análise DCF da Alphabet.
     page += """
 <div>
@@ -454,12 +480,18 @@ def notification_message(report, previous, mode, now):
         current_status = (row.get("assessment") or {}).get("label")
         old_status = ((old or {}).get("assessment") or {}).get("label")
 
-        if old and current_status != old_status and current_status in (
+        if current_status != old_status and current_status in (
             "INVESTIGAR COMPRA", "ESTUDAR ENTRADA", "ACOMPANHAR",
             "REVER VALORIZAÇÃO",
         ):
             updates.append(f"🎯 {symbol}: novo estado — {current_status}")
 
+        old_fv = (old or {}).get('fair_value') or {}
+        current_fv = row.get('fair_value') or {}
+        if old_fv.get('value', 0) > 0 and current_fv.get('value', 0) > 0:
+            delta = (current_fv['value'] / old_fv['value'] - 1) * 100
+            if abs(delta) >= 5:
+                updates.append(f"DCF {symbol}: fair value base revisto {delta:+.1f}%")
         if (isinstance(price, (int, float)) and
                 isinstance(old_price, (int, float)) and old_price > 0):
             change = (price / old_price - 1) * 100
@@ -475,6 +507,12 @@ def notification_message(report, previous, mode, now):
                 f"{'cotação recuperada' if current_quote else 'cotação indisponível'}"
             )
 
+    current_research = report.get('alphabet', {})
+    old_research = (previous or {}).get('alphabet', {})
+    if current_research.get('accession') and current_research.get('accession') != old_research.get('accession'):
+        updates.append('📑 Alphabet: nova demonstração SEC — ' + str(current_research.get('period_end')))
+    if current_research.get('data_status') != old_research.get('data_status'):
+        updates.append('Validação Alphabet: ' + str(current_research.get('data_status')))
     # The first run and weekly runs provide a useful baseline/digest.
     if mode == "weekly" or previous is None:
         digest = []
@@ -514,15 +552,34 @@ def main():
         print("Not scheduled for Lisbon local time")
         return
 
-    # Read the last published report BEFORE build() overwrites docs/latest.json.
-    previous = load_json(ROOT / "docs/latest.json", None)
-    report = build(mode, os.getenv("OFFLINE_TEST") == "1")
+    offline = os.getenv('OFFLINE_TEST') == '1'
+    # Compare with the last successfully notified report, so delivery failures retry.
+    state_path = ROOT / 'data/notification_state.json'
+    state = load_json(state_path, {})
+    previous = state.get('report')
+    report = build(mode, offline)
     message = notification_message(report, previous, mode, now)
-    if message is None:
-        print("Telegram: sem alterações relevantes; notificação dispensada")
+    week = now.astimezone(TZ).strftime('%G-%V')
+    # Same weekly digest and same payload are suppressed on workflow reruns.
+    if mode == 'weekly' and state.get('week') == week:
+        message = notification_message(report, previous, 'daily', now)
+    if not message:
+        print('Telegram: sem alterações relevantes')
         return
-    print(message)
-    print("Telegram:", telegram(message))
+    digest = hashlib.sha256(message.split('Lisboa', 1)[-1].encode()).hexdigest()
+    if digest == state.get('digest') or offline:
+        print('Telegram: suprimido (duplicado ou teste offline)')
+        return
+    try:
+        status = telegram(message)
+    except Exception as error:
+        status = type(error).__name__
+    print('Telegram:', status)
+    if status == 'sent':
+        state_path.write_text(json.dumps({'digest': digest, 'week': week if mode == 'weekly' else state.get('week'),
+                                         'report': report}, ensure_ascii=False, indent=2), encoding='utf-8')
+    elif status != 'not_configured':
+        raise RuntimeError('Telegram delivery failed; state retained for retry')
 
 
 if __name__ == "__main__":

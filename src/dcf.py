@@ -1,3 +1,5 @@
+import math
+
 
 def calculate_dcf(
     fcf,
@@ -8,6 +10,11 @@ def calculate_dcf(
     terminal_growth,
     years=5
 ):
+    numbers = (fcf, net_debt, shares, growth, discount_rate, terminal_growth, years)
+    if any(isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x) for x in numbers):
+        raise ValueError("DCF requer numeros finitos")
+    if not isinstance(years, int) or not 1 <= years <= 100 or discount_rate <= -1:
+        raise ValueError("Horizonte ou desconto invalido")
     if fcf <= 0 or shares <= 0:
         raise ValueError("FCF e acoes devem ser positivos")
 

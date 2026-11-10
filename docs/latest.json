@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-10T22:52:14.537459+00:00",
+  "generated_at": "2026-11-10T23:21:16.066969+00:00",
   "timezone": "Europe/Lisbon",
-  "mode": "daily",
-  "note": "Research only; no trading. Fair values require verified manually sourced estimates. No AI API call is made. News/earnings are not monitored in this version.",
+  "mode": "validation",
+  "note": "Research only; no trading. Fair values require verified manually sourced estimates. No AI API call is made. Alphabet SEC filings monitored; valuation blocked until validated.",
   "positions": [
     {
       "symbol": "VWCE",
@@ -106,9 +106,9 @@
       "owned": false,
       "quantity": null,
       "quote": {
-        "price": 235.35,
+        "price": 234.4,
         "currency": "EUR",
-        "as_of": "2026-11-10T08:00:00+00:00",
+        "as_of": "2026-11-09T08:00:00+00:00",
         "source": "https://query1.finance.yahoo.com/v8/finance/chart/SU.PA?range=5d&interval=1d",
         "type": "delayed_or_last_close"
       },
@@ -133,5 +133,78 @@
       "error": "Falha na fonte de preços: HTTPError"
     }
   ],
-  "claude_commentary": "Claude API não configurada; análise baseada apenas em regras."
+  "alphabet": {
+    "ticker": "GOOGL",
+    "currency": "USD",
+    "generated_at": "2026-11-10T23:21:16.067911+00:00",
+    "verified": false,
+    "valuation_ready": false,
+    "signal": "NO_SIGNAL",
+    "data_status": "DATA_UNAVAILABLE",
+    "errors": [
+      "BALANCE_FILINGS_DIFFER",
+      "CASH_FLOW_RECONCILIATION_FAILED",
+      "FCF_NOT_VALIDATED",
+      "FILING_REVIEW_REQUIRED",
+      "INVALID_CAPEX",
+      "INVALID_CASH",
+      "INVALID_CURRENT_DEBT",
+      "INVALID_NONCURRENT_DEBT",
+      "INVALID_OCF",
+      "INVALID_SHARES",
+      "NORMALIZED_FCF_NOT_VALIDATED",
+      "STALE_OR_MISMATCHED_CASH_FLOW"
+    ],
+    "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
+    "period_end": null,
+    "accession": null,
+    "fcf_ttm": {
+      "value": null,
+      "end": null,
+      "verified": false
+    },
+    "fcf_normalized": {
+      "value": null,
+      "rationale": null,
+      "verified": false
+    },
+    "net_debt": null,
+    "metrics": {},
+    "shares_outstanding": null,
+    "scenarios": {
+      "pessimistic": {
+        "fair_value": null,
+        "growth": 0.05,
+        "discount_rate": 0.11,
+        "terminal_growth": 0.02,
+        "years": 5,
+        "calculation": null,
+        "margin_of_safety_pct": null
+      },
+      "base": {
+        "fair_value": null,
+        "growth": 0.1,
+        "discount_rate": 0.09,
+        "terminal_growth": 0.025,
+        "years": 5,
+        "calculation": null,
+        "margin_of_safety_pct": null
+      },
+      "optimistic": {
+        "fair_value": null,
+        "growth": 0.15,
+        "discount_rate": 0.08,
+        "terminal_growth": 0.03,
+        "years": 5,
+        "calculation": null,
+        "margin_of_safety_pct": null
+      }
+    },
+    "review": {},
+    "fundamentals": {},
+    "warning": "DCF sensível aos pressupostos. OCF menos CapEx é um proxy simplificado; não é FCFF puro. Ganhos contabilísticos extraordinários não são extrapolados.",
+    "data_error": "RuntimeError"
+  },
+  "update_status": "DATA_UNAVAILABLE",
+  "claude_commentary": "Comentário pago desativado; análise determinística."
 }

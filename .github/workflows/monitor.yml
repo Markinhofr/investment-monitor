@@ -1,4 +1,4 @@
-name: Investment monitoring
+name: Investment monitoring v2
 on:
   schedule:
     - cron: '30 * * * *'
@@ -6,53 +6,70 @@ on:
     inputs:
       mode:
         description: 'daily, weekly or auto'
-        required: true
         default: daily
         type: choice
         options: [daily, weekly, auto]
+  pull_request:
+    branches: [main, investment-v2]
 permissions:
-  contents: write
+  contents: read
+concurrency:
+  group: investment-v2-monitor
+  cancel-in-progress: false
 jobs:
-  update:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Determine local schedule
+      - run: python -m unittest discover -s tests -v
+  update:
+    if: github.event_name != 'pull_request' && (github.event_name == 'schedule' || github.ref == 'refs/heads/investment-v2')
+    needs: test
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: investment-v2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Determine Lisbon schedule (DST aware)
         id: schedule
         env:
           REQUESTED_MODE: ${{ inputs.mode || 'auto' }}
         run: |
           python - <<'PY'
-          import os,datetime
-          from zoneinfo import ZoneInfo
-          d=datetime.datetime.now(ZoneInfo('Europe/Lisbon'))
-          mode=os.environ['REQUESTED_MODE']
-          if mode=='auto':
-              mode='daily' if d.hour==22 else ('weekly' if d.weekday()==6 and d.hour==10 else 'skip')
-          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('mode='+mode+'\n')
+          import os, datetime
+          from src.monitor import schedule
+          mode = os.environ['REQUESTED_MODE']
+          if mode == 'auto':
+              mode = schedule(datetime.datetime.now(datetime.timezone.utc)) or 'skip'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write('mode=' + mode + '\n')
           PY
-      - name: Run monitoring
+      - name: Collect, validate, publish and notify
         if: steps.schedule.outputs.mode != 'skip'
         env:
           REPORT_MODE: ${{ steps.schedule.outputs.mode }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python src/monitor.py
-      - name: Update Alphabet DCF
-        if: steps.schedule.outputs.mode != 'skip'
-        env:
-          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+          DASHBOARD_URL: ${{ vars.DASHBOARD_URL || 'https://markinhofr.github.io/investment-monitor/' }}
+        run: python -m src.monitor
+      - name: Persist dashboard and successful delivery state
+        if: always() && steps.schedule.outputs.mode != 'skip' && steps.schedule.outputs.mode != ''
         run: |
-          python -m src.dcf_report
-          cp data/dcf_alphabet.json docs/dcf_alphabet.json
-      - name: Commit dashboard
-        if: steps.schedule.outputs.mode != 'skip'
-        run: |
+          test "$(git branch --show-current)" = investment-v2
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/index.html docs/latest.json docs/dcf_alphabet.json
-          git diff --cached --quiet || (git commit -m 'Update investment dashboard' && git push)
+          git add docs data/dcf_alphabet.json
+          if test -f data/notification_state.json; then git add data/notification_state.json; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update investment-v2 dashboard and notification state'
+            git push origin HEAD:investment-v2
+          fi

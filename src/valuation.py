@@ -27,53 +27,18 @@ def calculate_dcf(
     Os valores monetarios devem usar a mesma
     unidade e moeda.
     """
-    if years < 1:
-        raise ValueError("Years must be positive")
-
-    if shares_outstanding <= 0:
-        raise ValueError("Invalid share count")
-
-    if discount_rate <= terminal_growth:
-        raise ValueError(
-            "Discount rate must exceed terminal growth"
-        )
-
-    if discount_rate <= -1 or growth_rate <= -1:
-        raise ValueError("Invalid growth/discount rate")
-
-    if free_cash_flow < 0:
-        raise ValueError(
-            "This simplified model requires positive FCF"
-        )
-
-    present_value = 0.0
-    projected_fcf = free_cash_flow
-
-    for year in range(1, years + 1):
-        projected_fcf *= (1 + growth_rate)
-        present_value += (
-            projected_fcf / (1 + discount_rate) ** year
-        )
-
-    terminal_value = (
-        projected_fcf * (1 + terminal_growth)
-        / (discount_rate - terminal_growth)
-    )
-
-    present_value += (
-        terminal_value / (1 + discount_rate) ** years
-    )
-
-    equity_value = present_value - net_debt
-
-    return max(0.0, equity_value / shares_outstanding)
+    from src.dcf import calculate_dcf as core_dcf
+    return max(0.0, core_dcf(free_cash_flow, net_debt, shares_outstanding,
+                           growth_rate, discount_rate, terminal_growth, years)["fair_value_per_share"])
 
 
 def evaluate_stock(
     current_price: float,
     fair_value: float,
 ) -> ValuationResult:
-    if current_price <= 0 or fair_value <= 0:
+    import math
+    if any(isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x)
+           for x in (current_price, fair_value)) or current_price <= 0 or fair_value <= 0:
         raise ValueError("Prices must be positive")
 
     margin = (fair_value - current_price) / fair_value

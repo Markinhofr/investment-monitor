@@ -106,59 +106,14 @@ def calculate_ttm_fcf(facts):
     )
 
 
-def generate_report():
-    scenarios = {}
-
-    for name, (growth, discount, terminal) in SCENARIOS.items():
-        scenarios[name] = {
-            "fair_value": None,
-            "growth": growth,
-            "discount_rate": discount,
-            "terminal_growth": terminal,
-        }
-
-    report = {
-        "ticker": "GOOGL",
-        "company": "Alphabet",
-        "currency": "USD",
-        "generated_at": datetime.now(
-            timezone.utc
-        ).isoformat(),
-        "verified": False,
-        "valuation_ready": False,
-        "signal": "NO_SIGNAL",
-        "method": "DCF_5Y",
-        "fcf_ttm": None,
-        "scenarios": scenarios,
-        "warning": (
-            "Dados financeiros preliminares. "
-            "DCF por acao suspenso ate validar divida liquida, "
-            "acoes em circulacao e pressupostos de crescimento."
-        ),
-    }
-
-    if not os.getenv("SEC_USER_AGENT"):
-        report["data_status"] = "SEC_USER_AGENT_NOT_CONFIGURED"
-    else:
-        try:
-            facts = get_sec_data()["facts"]["us-gaap"]
-            report["fcf_ttm"] = calculate_ttm_fcf(facts)
-            report["data_status"] = "PRELIMINARY_DATA_AVAILABLE"
-        except Exception as error:
-            report["data_status"] = "DATA_UNAVAILABLE"
-            report["data_error"] = type(error).__name__
-
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-
-    OUTPUT.write_text(
-        json.dumps(
-            report,
-            indent=2,
-            ensure_ascii=False,
-        ),
-        encoding="utf-8",
-    )
-
+def generate_report(offline=False):
+    from src.research import collect
+    review_path = ROOT / 'data/alphabet_review.json'
+    review = json.loads(review_path.read_text()) if review_path.exists() else {}
+    report = collect(review, offline)
+    for path in (OUTPUT, ROOT / 'docs/dcf_alphabet.json'):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(report, indent=2, ensure_ascii=False, allow_nan=False), encoding='utf-8')
     return report
 
 

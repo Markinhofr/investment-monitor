@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import urllib.request
 from datetime import date, datetime, timezone
@@ -31,7 +32,7 @@ def candidates(facts, tags, unit='USD'):
         for item in facts.get(tag, {}).get('units', {}).get(unit, []):
             if item.get('form') not in ('10-K', '10-Q') or not item.get('filed') or not item.get('end'):
                 continue
-            if not isinstance(item.get('val'), (int, float)) or isinstance(item['val'], bool):
+            if not isinstance(item.get('val'), (int, float)) or isinstance(item['val'], bool) or not math.isfinite(item['val']):
                 continue
             result.append({**item, '_tag': tag, '_unit': unit})
     return result
@@ -49,8 +50,7 @@ def choose(rows, tags):
     if not rows:
         return None
     priority = {tag: len(tags) - i for i, tag in enumerate(tags)}
-    # Prefer original filing for a period rather than a later comparative restatement.
-    # This is a selection policy, not a financial audit.
+    # Prefer latest filed comparative/restatement for the selected tag and period.
     return pack(max(rows, key=lambda x: (priority.get(x['_tag'], 0), x['filed'], x.get('accn', ''))))
 
 
@@ -119,7 +119,10 @@ def calculate_net_debt(current_debt, noncurrent_debt, cash):
 
 
 def fetch_alphabet():
-    facts = get_sec_data()['facts']['us-gaap']
+    payload = get_sec_data()
+    if str(payload.get('cik')).lstrip('0') != '1652044':
+        raise ValueError('CIK inesperado')
+    facts = payload['facts']['us-gaap']
     revenue = latest_annual(facts, REVENUE_TAGS)
     if revenue is None:
         raise ValueError('Nao foi encontrado um periodo anual valido para receitas.')
@@ -140,8 +143,31 @@ def fetch_alphabet():
             'cash': latest_instant(facts, ['CashAndCashEquivalentsAtCarryingValue']),
             'shares_outstanding': latest_instant(facts, ['CommonStockSharesOutstanding'], 'shares'),
             'source': SEC_URL, 'retrieved_at': datetime.now(timezone.utc).isoformat(),
-            'verified': False}
+            'verified': False,
+            'balance_sheet': balance_sheet(facts),
+            'ttm_operating_cash_flow': calculate_ttm(facts, OCF_TAGS, ocf) or ocf,
+            'ttm_capex': calculate_ttm(facts, CAPEX_TAGS, capex) or capex}
 
+
+
+
+def balance_sheet(facts):
+    tags = {
+        'cash': ['CashAndCashEquivalentsAtCarryingValue'],
+        'current_debt': ['LongTermDebtCurrent', 'LongTermDebtAndCapitalLeaseObligationsCurrent'],
+        'noncurrent_debt': ['LongTermDebtNoncurrent', 'LongTermDebtAndCapitalLeaseObligations'],
+        'shares': ['CommonStockSharesOutstanding'],
+    }
+    cash = latest_instant(facts, tags['cash'])
+    if not cash:
+        return {}
+    end = cash['end']
+    result = {}
+    for name, alternatives in tags.items():
+        rows = [x for x in candidates(facts, alternatives, 'shares' if name == 'shares' else 'USD')
+                if not x.get('start') and x['end'] == end]
+        result[name] = choose(rows, alternatives)
+    return result
 
 if __name__ == '__main__':
     print(json.dumps(fetch_alphabet(), indent=2))
