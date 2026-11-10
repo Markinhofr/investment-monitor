@@ -42,10 +42,15 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python src/monitor.py
+      - name: Update Alphabet DCF
+        if: steps.schedule.outputs.mode != 'skip'
+        run: |
+          python -m src.dcf_report
+          cp data/dcf_alphabet.json docs/dcf_alphabet.json
       - name: Commit dashboard
         if: steps.schedule.outputs.mode != 'skip'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/index.html docs/latest.json
+          git add docs/index.html docs/latest.json docs/dcf_alphabet.json
           git diff --cached --quiet || (git commit -m 'Update investment dashboard' && git push)
