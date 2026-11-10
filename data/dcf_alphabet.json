@@ -2,30 +2,40 @@
   "ticker": "GOOGL",
   "company": "Alphabet",
   "currency": "USD",
-  "generated_at": "2026-11-09T23:48:41.829074+00:00",
+  "generated_at": "2026-11-10T22:00:40.727366+00:00",
   "verified": false,
   "valuation_ready": false,
   "signal": "NO_SIGNAL",
   "method": "DCF_5Y",
-  "warning": "Demonstracao com pressupostos e dados ainda nao validados. Nao usar como recomendacao de investimento.",
+  "fcf_ttm": {
+    "value": 19747000000,
+    "annual_fcf": 73266000000,
+    "current_ytd_fcf": -4804000000,
+    "prior_ytd_fcf": 48715000000,
+    "end": "2026-09-30",
+    "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
+    "verified": false
+  },
   "scenarios": {
     "pessimistic": {
-      "fair_value": 70.61,
+      "fair_value": null,
       "growth": 0.05,
       "discount_rate": 0.11,
       "terminal_growth": 0.02
     },
     "base": {
-      "fair_value": 123.02,
+      "fair_value": null,
       "growth": 0.1,
       "discount_rate": 0.09,
       "terminal_growth": 0.025
     },
     "optimistic": {
-      "fair_value": 198.01,
+      "fair_value": null,
       "growth": 0.15,
       "discount_rate": 0.08,
       "terminal_growth": 0.03
     }
-  }
+  },
+  "warning": "Dados financeiros preliminares. DCF por acao suspenso ate validar divida liquida, acoes em circulacao e pressupostos de crescimento.",
+  "data_status": "PRELIMINARY_DATA_AVAILABLE"
 }

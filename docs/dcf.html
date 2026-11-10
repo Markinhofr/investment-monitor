@@ -43,6 +43,17 @@ a { color: #80b7ff; }
 </div>
 <p id="updated"></p>
 </main>
+
+<div id="fcf-panel" style="background:#19263d;padding:20px;border-radius:14px;margin:20px 0">
+  <h2>Free Cash Flow — Últimos 12 meses</h2>
+  <p id="fcf-value">A carregar...</p>
+  <p id="fcf-date" style="font-size:13px;color:#aab8cd"></p>
+  <p style="font-size:12px;color:#aab8cd">
+    Dados preliminares da SEC. Não representam necessariamente
+    o fluxo de caixa sustentável da empresa.
+  </p>
+</div>
+
 <script>
 async function loadDCF() {
   const container = document.getElementById("results");
@@ -75,7 +86,7 @@ async function loadDCF() {
       const value = document.createElement("div");
       value.className = "value";
       value.textContent =
-        Number(item.fair_value).toFixed(2) + " USD";
+        (item.fair_value == null ? "Avaliação pendente" : Number(item.fair_value).toFixed(2) + " USD");
 
       const note = document.createElement("small");
       note.textContent =
@@ -98,5 +109,24 @@ async function loadDCF() {
 
 loadDCF();
 </script>
+
+<script>
+fetch("dcf_alphabet.json")
+  .then(response => response.json())
+  .then(data => {
+    const fcf = data.fcf_ttm;
+    document.getElementById("fcf-value").textContent =
+      fcf && Number.isFinite(fcf.value)
+        ? (fcf.value / 1e9).toFixed(3) + " mil milhões USD"
+        : "Dados indisponíveis";
+    document.getElementById("fcf-date").textContent =
+      fcf && fcf.end ? "Dados até: " + fcf.end : "";
+  })
+  .catch(() => {
+    document.getElementById("fcf-value").textContent =
+      "Dados indisponíveis";
+  });
+</script>
+
 </body>
 </html>
