@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T21:27:56.114014+00:00",
+  "generated_at": "2026-11-10T20:54:32.106296+00:00",
   "timezone": "Europe/Lisbon",
   "mode": "daily",
   "note": "Research only; no trading. Fair values require verified manually sourced estimates. No AI API call is made. News/earnings are not monitored in this version.",
@@ -49,9 +49,9 @@
       "owned": false,
       "quantity": null,
       "quote": {
-        "price": 288.15,
+        "price": 287.44,
         "currency": "USD",
-        "as_of": "2026-11-09T14:30:00+00:00",
+        "as_of": "2026-11-10T14:30:00+00:00",
         "source": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?range=5d&interval=1d",
         "type": "delayed_or_last_close"
       },
@@ -68,9 +68,9 @@
       "owned": false,
       "quantity": null,
       "quote": {
-        "price": 471.09,
+        "price": 473.055,
         "currency": "USD",
-        "as_of": "2026-11-09T14:30:00+00:00",
+        "as_of": "2026-11-10T14:30:00+00:00",
         "source": "https://query1.finance.yahoo.com/v8/finance/chart/SPGI?range=5d&interval=1d",
         "type": "delayed_or_last_close"
       },
@@ -87,9 +87,9 @@
       "owned": false,
       "quantity": null,
       "quote": {
-        "price": 422.16,
+        "price": 423.2448,
         "currency": "USD",
-        "as_of": "2026-11-09T14:30:00+00:00",
+        "as_of": "2026-11-10T14:30:00+00:00",
         "source": "https://query1.finance.yahoo.com/v8/finance/chart/V?range=5d&interval=1d",
         "type": "delayed_or_last_close"
       },
@@ -106,9 +106,9 @@
       "owned": false,
       "quantity": null,
       "quote": {
-        "price": 234.4,
+        "price": 235.35,
         "currency": "EUR",
-        "as_of": "2026-11-09T08:00:00+00:00",
+        "as_of": "2026-11-10T08:00:00+00:00",
         "source": "https://query1.finance.yahoo.com/v8/finance/chart/SU.PA?range=5d&interval=1d",
         "type": "delayed_or_last_close"
       },
