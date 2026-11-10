@@ -1,32 +1,22 @@
 {
   "ticker": "GOOGL",
   "currency": "USD",
-  "generated_at": "2026-11-10T23:21:16.067911+00:00",
+  "generated_at": "2026-11-10T23:22:47.159176+00:00",
   "verified": false,
   "valuation_ready": false,
   "signal": "NO_SIGNAL",
-  "data_status": "DATA_UNAVAILABLE",
+  "data_status": "VALIDATION_PENDING",
   "errors": [
-    "BALANCE_FILINGS_DIFFER",
-    "CASH_FLOW_RECONCILIATION_FAILED",
-    "FCF_NOT_VALIDATED",
     "FILING_REVIEW_REQUIRED",
-    "INVALID_CAPEX",
-    "INVALID_CASH",
-    "INVALID_CURRENT_DEBT",
-    "INVALID_NONCURRENT_DEBT",
-    "INVALID_OCF",
-    "INVALID_SHARES",
-    "NORMALIZED_FCF_NOT_VALIDATED",
-    "STALE_OR_MISMATCHED_CASH_FLOW"
+    "NORMALIZED_FCF_NOT_VALIDATED"
   ],
   "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
-  "period_end": null,
-  "accession": null,
+  "period_end": "2026-09-30",
+  "accession": "0001652044-26-000084",
   "fcf_ttm": {
-    "value": null,
-    "end": null,
-    "verified": false
+    "value": 19747000000,
+    "end": "2026-09-30",
+    "verified": true
   },
   "fcf_normalized": {
     "value": null,
@@ -34,7 +24,26 @@
     "verified": false
   },
   "net_debt": null,
-  "metrics": {},
+  "metrics": {
+    "annual_revenue": {
+      "value": 402836000000,
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "filed": "2026-02-05",
+      "accession": "0001652044-26-000018",
+      "tag": "Revenues",
+      "unit": "USD"
+    },
+    "annual_net_income": {
+      "value": 132170000000,
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "filed": "2026-02-05",
+      "accession": "0001652044-26-000018",
+      "tag": "NetIncomeLoss",
+      "unit": "USD"
+    }
+  },
   "shares_outstanding": null,
   "scenarios": {
     "pessimistic": {
@@ -62,8 +71,285 @@
       "calculation": null
     }
   },
-  "review": {},
-  "fundamentals": {},
-  "warning": "DCF sensível aos pressupostos. OCF menos CapEx é um proxy simplificado; não é FCFF puro. Ganhos contabilísticos extraordinários não são extrapolados.",
-  "data_error": "RuntimeError"
+  "review": {
+    "period_end": null,
+    "accession": null,
+    "source_url": null,
+    "reviewed_by": null,
+    "reviewed_at": null,
+    "all_share_classes_confirmed": false,
+    "debt_scope_confirmed": false,
+    "extraordinary_cash_flows_reviewed": false,
+    "assumptions_approved": false,
+    "normalized_fcf": null,
+    "normalization_rationale": null
+  },
+  "fundamentals": {
+    "company": "Alphabet",
+    "ticker": "GOOGL",
+    "currency": "USD",
+    "annual_revenue": {
+      "value": 402836000000,
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "filed": "2026-02-05",
+      "accession": "0001652044-26-000018",
+      "tag": "Revenues",
+      "unit": "USD"
+    },
+    "annual_net_income": {
+      "value": 132170000000,
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "filed": "2026-02-05",
+      "accession": "0001652044-26-000018",
+      "tag": "NetIncomeLoss",
+      "unit": "USD"
+    },
+    "ttm_revenue": {
+      "value": 471098000000,
+      "end": "2026-09-30",
+      "method": "FY + current YTD - prior YTD",
+      "components": {
+        "annual": 402836000000,
+        "current_ytd": 357269000000,
+        "prior_ytd": 289007000000
+      },
+      "sources": {
+        "annual": {
+          "value": 402836000000,
+          "start": "2025-01-01",
+          "end": "2025-12-31",
+          "filed": "2026-02-05",
+          "accession": "0001652044-26-000018",
+          "tag": "Revenues",
+          "unit": "USD"
+        },
+        "current_ytd": {
+          "value": 357269000000,
+          "start": "2026-01-01",
+          "end": "2026-09-30",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "Revenues",
+          "unit": "USD"
+        },
+        "prior_ytd": {
+          "value": 289007000000,
+          "start": "2025-01-01",
+          "end": "2025-09-30",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "Revenues",
+          "unit": "USD"
+        }
+      },
+      "verified": false
+    },
+    "ttm_net_income": {
+      "value": 235694000000,
+      "end": "2026-09-30",
+      "method": "FY + current YTD - prior YTD",
+      "components": {
+        "annual": 132170000000,
+        "current_ytd": 201239000000,
+        "prior_ytd": 97715000000
+      },
+      "sources": {
+        "annual": {
+          "value": 132170000000,
+          "start": "2025-01-01",
+          "end": "2025-12-31",
+          "filed": "2026-02-05",
+          "accession": "0001652044-26-000018",
+          "tag": "NetIncomeLoss",
+          "unit": "USD"
+        },
+        "current_ytd": {
+          "value": 201239000000,
+          "start": "2026-01-01",
+          "end": "2026-09-30",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "NetIncomeLoss",
+          "unit": "USD"
+        },
+        "prior_ytd": {
+          "value": 97715000000,
+          "start": "2025-01-01",
+          "end": "2025-09-30",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "NetIncomeLoss",
+          "unit": "USD"
+        }
+      },
+      "verified": false
+    },
+    "annual_operating_cash_flow": {
+      "value": 164713000000,
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "filed": "2026-02-05",
+      "accession": "0001652044-26-000018",
+      "tag": "NetCashProvidedByUsedInOperatingActivities",
+      "unit": "USD"
+    },
+    "annual_capex": {
+      "value": 91447000000,
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "filed": "2026-02-05",
+      "accession": "0001652044-26-000018",
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "unit": "USD"
+    },
+    "annual_free_cash_flow": {
+      "value": 73266000000,
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "method": "Operating cash flow - CapEx",
+      "verified": false
+    },
+    "cash": {
+      "value": 56334000000,
+      "start": null,
+      "end": "2026-09-30",
+      "filed": "2026-10-29",
+      "accession": "0001652044-26-000084",
+      "tag": "CashAndCashEquivalentsAtCarryingValue",
+      "unit": "USD"
+    },
+    "shares_outstanding": {
+      "value": 12294000000,
+      "start": null,
+      "end": "2026-09-30",
+      "filed": "2026-10-29",
+      "accession": "0001652044-26-000084",
+      "tag": "CommonStockSharesOutstanding",
+      "unit": "shares"
+    },
+    "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
+    "retrieved_at": "2026-11-10T23:22:47.154231+00:00",
+    "verified": false,
+    "balance_sheet": {
+      "cash": {
+        "value": 56334000000,
+        "start": null,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "accession": "0001652044-26-000084",
+        "tag": "CashAndCashEquivalentsAtCarryingValue",
+        "unit": "USD"
+      },
+      "current_debt": {
+        "value": 1016000000,
+        "start": null,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "accession": "0001652044-26-000084",
+        "tag": "LongTermDebtCurrent",
+        "unit": "USD"
+      },
+      "noncurrent_debt": {
+        "value": 125102000000,
+        "start": null,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "accession": "0001652044-26-000084",
+        "tag": "LongTermDebtNoncurrent",
+        "unit": "USD"
+      },
+      "shares": {
+        "value": 12294000000,
+        "start": null,
+        "end": "2026-09-30",
+        "filed": "2026-10-29",
+        "accession": "0001652044-26-000084",
+        "tag": "CommonStockSharesOutstanding",
+        "unit": "shares"
+      }
+    },
+    "ttm_operating_cash_flow": {
+      "value": 179551000000,
+      "end": "2026-09-30",
+      "method": "FY + current YTD - prior YTD",
+      "components": {
+        "annual": 164713000000,
+        "current_ytd": 127149000000,
+        "prior_ytd": 112311000000
+      },
+      "sources": {
+        "annual": {
+          "value": 164713000000,
+          "start": "2025-01-01",
+          "end": "2025-12-31",
+          "filed": "2026-02-05",
+          "accession": "0001652044-26-000018",
+          "tag": "NetCashProvidedByUsedInOperatingActivities",
+          "unit": "USD"
+        },
+        "current_ytd": {
+          "value": 127149000000,
+          "start": "2026-01-01",
+          "end": "2026-09-30",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "NetCashProvidedByUsedInOperatingActivities",
+          "unit": "USD"
+        },
+        "prior_ytd": {
+          "value": 112311000000,
+          "start": "2025-01-01",
+          "end": "2025-09-30",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "NetCashProvidedByUsedInOperatingActivities",
+          "unit": "USD"
+        }
+      },
+      "verified": false
+    },
+    "ttm_capex": {
+      "value": 159804000000,
+      "end": "2026-09-30",
+      "method": "FY + current YTD - prior YTD",
+      "components": {
+        "annual": 91447000000,
+        "current_ytd": 131953000000,
+        "prior_ytd": 63596000000
+      },
+      "sources": {
+        "annual": {
+          "value": 91447000000,
+          "start": "2025-01-01",
+          "end": "2025-12-31",
+          "filed": "2026-02-05",
+          "accession": "0001652044-26-000018",
+          "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+          "unit": "USD"
+        },
+        "current_ytd": {
+          "value": 131953000000,
+          "start": "2026-01-01",
+          "end": "2026-09-30",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+          "unit": "USD"
+        },
+        "prior_ytd": {
+          "value": 63596000000,
+          "start": "2025-01-01",
+          "end": "2025-09-30",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+          "unit": "USD"
+        }
+      },
+      "verified": false
+    }
+  },
+  "warning": "DCF sensível aos pressupostos. OCF menos CapEx é um proxy simplificado; não é FCFF puro. Ganhos contabilísticos extraordinários não são extrapolados."
 }
