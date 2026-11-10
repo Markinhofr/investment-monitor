@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T20:54:32.106296+00:00",
+  "generated_at": "2026-11-10T22:21:07.021107+00:00",
   "timezone": "Europe/Lisbon",
   "mode": "daily",
   "note": "Research only; no trading. Fair values require verified manually sourced estimates. No AI API call is made. News/earnings are not monitored in this version.",
@@ -49,7 +49,7 @@
       "owned": false,
       "quantity": null,
       "quote": {
-        "price": 287.44,
+        "price": 287.38,
         "currency": "USD",
         "as_of": "2026-11-10T14:30:00+00:00",
         "source": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?range=5d&interval=1d",
@@ -68,7 +68,7 @@
       "owned": false,
       "quantity": null,
       "quote": {
-        "price": 473.055,
+        "price": 473.38,
         "currency": "USD",
         "as_of": "2026-11-10T14:30:00+00:00",
         "source": "https://query1.finance.yahoo.com/v8/finance/chart/SPGI?range=5d&interval=1d",
@@ -87,7 +87,7 @@
       "owned": false,
       "quantity": null,
       "quote": {
-        "price": 423.2448,
+        "price": 423.0,
         "currency": "USD",
         "as_of": "2026-11-10T14:30:00+00:00",
         "source": "https://query1.finance.yahoo.com/v8/finance/chart/V?range=5d&interval=1d",
