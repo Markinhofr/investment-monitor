@@ -430,46 +430,97 @@ a { color: #9ac7ff; }
     return report
 
 
+DASHBOARD_URL = os.getenv(
+    "DASHBOARD_URL",
+    "https://markinhofr.github.io/investment-monitor/",
+)
+
+
+def notification_message(report, previous, mode, now):
+    """Only notify for meaningful changes; send a weekly digest regardless."""
+    previous_positions = {
+        row.get("symbol"): row
+        for row in (previous or {}).get("positions", [])
+        if isinstance(row, dict) and row.get("symbol")
+    }
+    updates = []
+    for row in report["positions"]:
+        symbol = row["symbol"]
+        old = previous_positions.get(symbol)
+        current_quote = row.get("quote") or {}
+        old_quote = (old or {}).get("quote") or {}
+        price = current_quote.get("price")
+        old_price = old_quote.get("price")
+        current_status = (row.get("assessment") or {}).get("label")
+        old_status = ((old or {}).get("assessment") or {}).get("label")
+
+        if old and current_status != old_status and current_status in (
+            "INVESTIGAR COMPRA", "ESTUDAR ENTRADA", "ACOMPANHAR",
+            "REVER VALORIZAÇÃO",
+        ):
+            updates.append(f"🎯 {symbol}: novo estado — {current_status}")
+
+        if (isinstance(price, (int, float)) and
+                isinstance(old_price, (int, float)) and old_price > 0):
+            change = (price / old_price - 1) * 100
+            if abs(change) >= 3:
+                updates.append(
+                    f"{'📈' if change > 0 else '📉'} {symbol}: "
+                    f"{price:.2f} {current_quote.get('currency') or ''} "
+                    f"({change:+.1f}% desde a última execução)"
+                )
+        elif old and bool(current_quote) != bool(old_quote):
+            updates.append(
+                f"{'✅' if current_quote else '⚠️'} {symbol}: "
+                f"{'cotação recuperada' if current_quote else 'cotação indisponível'}"
+            )
+
+    # The first run and weekly runs provide a useful baseline/digest.
+    if mode == "weekly" or previous is None:
+        digest = []
+        for row in report["positions"]:
+            q = row.get("quote") or {}
+            if isinstance(q.get("price"), (int, float)):
+                digest.append(
+                    f"• {row['symbol']}: {q['price']:.2f} "
+                    f"{q.get('currency') or ''}"
+                )
+        if digest:
+            updates.insert(0, "📊 Últimas cotações disponíveis:\n" + "\n".join(digest))
+        elif previous is None:
+            updates.append("⚠️ Ainda não existem cotações disponíveis.")
+
+    if not updates:
+        return None
+
+    title = "Resumo semanal" if mode == "weekly" else "Atualização relevante"
+    timestamp = now.astimezone(TZ).strftime("%d/%m/%Y %H:%M")
+    return (
+        f"📊 Investment Monitor — {title}\n"
+        f"🕒 {timestamp} Lisboa\n\n"
+        + "\n".join(updates)
+        + "\n\n🔗 Dashboard: " + DASHBOARD_URL
+        + "\n⚠️ Preços podem estar atrasados; sem fair value validado não há sinais de compra."
+    )
+
+
 def main():
     mode = os.getenv("REPORT_MODE", "auto")
     now = datetime.datetime.now(datetime.timezone.utc)
 
     if mode == "auto":
         mode = schedule(now)
-
     if mode is None:
         print("Not scheduled for Lisbon local time")
         return
 
-    report = build(
-        mode,
-        os.getenv("OFFLINE_TEST") == "1",
-    )
-
-    signals = [
-        item
-        for item in report["positions"]
-        if item["assessment"]["label"] in (
-            "INVESTIGAR COMPRA",
-            "ESTUDAR ENTRADA",
-        )
-    ]
-
-    message = (
-        f"📈 Investment Analyst — {mode} — "
-        f"{now.astimezone(TZ):%d/%m %H:%M} Lisboa\n"
-        + (
-            "\n".join(
-                f"{item['symbol']}: "
-                f"{item['assessment']['label']} "
-                f"({item['assessment']['discount_pct']}%)"
-                for item in signals
-            )
-            if signals
-            else "Sem sinais de valorização verificáveis. Consultar dashboard."
-        )
-    )
-
+    # Read the last published report BEFORE build() overwrites docs/latest.json.
+    previous = load_json(ROOT / "docs/latest.json", None)
+    report = build(mode, os.getenv("OFFLINE_TEST") == "1")
+    message = notification_message(report, previous, mode, now)
+    if message is None:
+        print("Telegram: sem alterações relevantes; notificação dispensada")
+        return
     print(message)
     print("Telegram:", telegram(message))
 
