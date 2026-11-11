@@ -1,0 +1,1233 @@
+{
+  "methodology": "FCFF_WACC",
+  "methodology_approval": {
+    "approved": true,
+    "scope": "method only",
+    "source": "explicit user instruction 2026-11-11"
+  },
+  "valuation_date": "2026-11-11",
+  "financial_period": {
+    "start": "2025-10-01",
+    "end": "2026-09-30"
+  },
+  "currency": "USD",
+  "financials": {
+    "reported_ebit": {
+      "value": 156976000000,
+      "unit": "USD",
+      "start": "2025-10-01",
+      "end": "2026-09-30",
+      "as_of": "2026-10-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "validated": true,
+      "formula": "annual + current YTD - prior YTD",
+      "components": {
+        "annual": {
+          "value": 129039000000,
+          "unit": "USD",
+          "start": "2025-01-01",
+          "end": "2025-12-31",
+          "as_of": "2026-02-05",
+          "filed": "2026-02-05",
+          "accession": "0001652044-26-000018",
+          "tag": "us-gaap:OperatingIncomeLoss",
+          "context": "c-1",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+          "document_sha256": "1ac2638bc971cca8b7a2fd0dc92c82d8d3786219ae68c532a6d0d9f4983f7659",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        },
+        "current_ytd": {
+          "value": 121042000000,
+          "unit": "USD",
+          "start": "2026-01-01",
+          "end": "2026-09-30",
+          "as_of": "2026-10-29",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "us-gaap:OperatingIncomeLoss",
+          "context": "c-1",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+          "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        },
+        "prior_ytd": {
+          "value": 93105000000,
+          "unit": "USD",
+          "start": "2025-01-01",
+          "end": "2025-09-30",
+          "as_of": "2026-10-29",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "us-gaap:OperatingIncomeLoss",
+          "context": "c-42",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+          "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        }
+      }
+    },
+    "reported_sbc": {
+      "value": 30409000000,
+      "unit": "USD",
+      "start": "2025-10-01",
+      "end": "2026-09-30",
+      "as_of": "2026-10-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "validated": true,
+      "formula": "annual + current YTD - prior YTD",
+      "components": {
+        "annual": {
+          "value": 24953000000,
+          "unit": "USD",
+          "start": "2025-01-01",
+          "end": "2025-12-31",
+          "as_of": "2026-02-05",
+          "filed": "2026-02-05",
+          "accession": "0001652044-26-000018",
+          "tag": "us-gaap:ShareBasedCompensation",
+          "context": "c-1",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+          "document_sha256": "1ac2638bc971cca8b7a2fd0dc92c82d8d3786219ae68c532a6d0d9f4983f7659",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        },
+        "current_ytd": {
+          "value": 23338000000,
+          "unit": "USD",
+          "start": "2026-01-01",
+          "end": "2026-09-30",
+          "as_of": "2026-10-29",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "us-gaap:ShareBasedCompensation",
+          "context": "c-1",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+          "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        },
+        "prior_ytd": {
+          "value": 17882000000,
+          "unit": "USD",
+          "start": "2025-01-01",
+          "end": "2025-09-30",
+          "as_of": "2026-10-29",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "us-gaap:ShareBasedCompensation",
+          "context": "c-42",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+          "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        }
+      }
+    },
+    "operating_da": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null,
+      "validated": false
+    },
+    "ocf": {
+      "value": 179551000000,
+      "unit": "USD",
+      "start": "2025-10-01",
+      "end": "2026-09-30",
+      "as_of": "2026-10-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "validated": true,
+      "formula": "annual + current YTD - prior YTD",
+      "components": {
+        "annual": {
+          "value": 164713000000,
+          "unit": "USD",
+          "start": "2025-01-01",
+          "end": "2025-12-31",
+          "as_of": "2026-02-05",
+          "filed": "2026-02-05",
+          "accession": "0001652044-26-000018",
+          "tag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+          "context": "c-1",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+          "document_sha256": "1ac2638bc971cca8b7a2fd0dc92c82d8d3786219ae68c532a6d0d9f4983f7659",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        },
+        "current_ytd": {
+          "value": 127149000000,
+          "unit": "USD",
+          "start": "2026-01-01",
+          "end": "2026-09-30",
+          "as_of": "2026-10-29",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+          "context": "c-1",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+          "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        },
+        "prior_ytd": {
+          "value": 112311000000,
+          "unit": "USD",
+          "start": "2025-01-01",
+          "end": "2025-09-30",
+          "as_of": "2026-10-29",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+          "context": "c-42",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+          "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        }
+      }
+    },
+    "cash_interest_in_ocf_including_leases": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null,
+      "validated": false
+    },
+    "revenue": {
+      "value": 471098000000,
+      "unit": "USD",
+      "start": "2025-10-01",
+      "end": "2026-09-30",
+      "as_of": "2026-10-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "validated": true,
+      "formula": "annual + current YTD - prior YTD",
+      "components": {
+        "annual": {
+          "value": 402836000000,
+          "unit": "USD",
+          "start": "2025-01-01",
+          "end": "2025-12-31",
+          "as_of": "2026-02-05",
+          "filed": "2026-02-05",
+          "accession": "0001652044-26-000018",
+          "tag": "us-gaap:Revenues",
+          "context": "c-1",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+          "document_sha256": "1ac2638bc971cca8b7a2fd0dc92c82d8d3786219ae68c532a6d0d9f4983f7659",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        },
+        "current_ytd": {
+          "value": 357269000000,
+          "unit": "USD",
+          "start": "2026-01-01",
+          "end": "2026-09-30",
+          "as_of": "2026-10-29",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "us-gaap:Revenues",
+          "context": "c-1",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+          "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        },
+        "prior_ytd": {
+          "value": 289007000000,
+          "unit": "USD",
+          "start": "2025-01-01",
+          "end": "2025-09-30",
+          "as_of": "2026-10-29",
+          "filed": "2026-10-29",
+          "accession": "0001652044-26-000084",
+          "tag": "us-gaap:Revenues",
+          "context": "c-42",
+          "decimals": "-6",
+          "members": [],
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+          "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+          "validated": true,
+          "validation_scope": "inline-XBRL extraction only; no financial approval"
+        }
+      }
+    },
+    "cash": {
+      "value": 56334000000,
+      "unit": "USD",
+      "start": null,
+      "end": "2026-09-30",
+      "as_of": "2026-09-30",
+      "filed": "2026-10-29",
+      "accession": "0001652044-26-000084",
+      "tag": "us-gaap:CashAndCashEquivalentsAtCarryingValue",
+      "context": "c-32",
+      "decimals": "-6",
+      "members": [],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+      "validated": true,
+      "validation_scope": "inline-XBRL extraction only; no financial approval"
+    },
+    "class_a_price": {
+      "value": 287.38,
+      "unit": "USD",
+      "as_of": "2026-11-10",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?range=5d&interval=1d",
+      "validated": true,
+      "type": "delayed_or_last_close",
+      "ticker": "GOOGL"
+    },
+    "class_c_price": {
+      "value": 286.01,
+      "unit": "USD",
+      "as_of": "2026-11-09",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?range=5d&interval=1d",
+      "validated": true,
+      "type": "delayed_or_last_close",
+      "ticker": "GOOG"
+    },
+    "class_b_price": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null,
+      "validated": false
+    },
+    "notes_market_value": {
+      "value": 114900000000,
+      "unit": "USD",
+      "start": null,
+      "end": "2026-09-30",
+      "as_of": "2026-09-30",
+      "filed": "2026-10-29",
+      "accession": "0001652044-26-000084",
+      "tag": "us-gaap:LongTermDebtFairValue",
+      "context": "c-32",
+      "decimals": "-8",
+      "members": [],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+      "validated": true,
+      "validation_scope": "inline-XBRL extraction only; no financial approval"
+    },
+    "finance_lease_pv": {
+      "value": 3705000000,
+      "unit": "USD",
+      "start": null,
+      "end": "2026-09-30",
+      "as_of": "2026-09-30",
+      "filed": "2026-10-29",
+      "accession": "0001652044-26-000084",
+      "tag": "us-gaap:FinanceLeaseLiability",
+      "context": "c-32",
+      "decimals": "-6",
+      "members": [],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+      "validated": true,
+      "validation_scope": "inline-XBRL extraction only; no financial approval"
+    },
+    "preferred_market_value": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null,
+      "validated": false
+    },
+    "class_a": {
+      "value": 5888000000,
+      "unit": "shares",
+      "start": null,
+      "end": "2026-09-30",
+      "as_of": "2026-09-30",
+      "filed": "2026-10-29",
+      "accession": "0001652044-26-000084",
+      "tag": "us-gaap:CommonStockSharesOutstanding",
+      "context": "c-35",
+      "decimals": "-6",
+      "members": [
+        "us-gaap:CommonClassAMember"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+      "validated": true,
+      "validation_scope": "inline-XBRL extraction only; no financial approval"
+    },
+    "class_b": {
+      "value": 828000000,
+      "unit": "shares",
+      "start": null,
+      "end": "2026-09-30",
+      "as_of": "2026-09-30",
+      "filed": "2026-10-29",
+      "accession": "0001652044-26-000084",
+      "tag": "us-gaap:CommonStockSharesOutstanding",
+      "context": "c-36",
+      "decimals": "-6",
+      "members": [
+        "us-gaap:CommonClassBMember"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+      "validated": true,
+      "validation_scope": "inline-XBRL extraction only; no financial approval"
+    },
+    "class_c": {
+      "value": 5578000000,
+      "unit": "shares",
+      "start": null,
+      "end": "2026-09-30",
+      "as_of": "2026-09-30",
+      "filed": "2026-10-29",
+      "accession": "0001652044-26-000084",
+      "tag": "us-gaap:CommonStockSharesOutstanding",
+      "context": "c-39",
+      "decimals": "-6",
+      "members": [
+        "us-gaap:CommonClassCMember"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+      "validated": true,
+      "validation_scope": "inline-XBRL extraction only; no financial approval"
+    },
+    "reported_common_total": {
+      "value": 12294000000,
+      "unit": "shares",
+      "start": null,
+      "end": "2026-09-30",
+      "as_of": "2026-09-30",
+      "filed": "2026-10-29",
+      "accession": "0001652044-26-000084",
+      "tag": "us-gaap:CommonStockSharesOutstanding",
+      "context": "c-32",
+      "decimals": "-6",
+      "members": [],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "document_sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821",
+      "validated": true,
+      "validation_scope": "inline-XBRL extraction only; no financial approval"
+    }
+  },
+  "assumptions": {
+    "normalized_sbc": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "sustainable_cash_capex": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "owned_capex_accrual_change": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "capitalized_interest_in_capex": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "finance_lease_investment": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "normalized_delta_nwc": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "nonoperating_cash_after_tax": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "reconciliation_tolerance": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "base_normalized_nwc": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "minimum_operating_cash": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "investments_net_tax": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "capped_calls_value": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "minority_interest_value": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "other_claims_value": {
+      "value": null,
+      "unit": "USD",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "operating_tax_rate": {
+      "value": null,
+      "unit": "fraction",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "interest_tax_shield_rate": {
+      "value": null,
+      "unit": "fraction",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "risk_free": {
+      "value": null,
+      "unit": "fraction",
+      "as_of": null,
+      "source_url": "https://home.treasury.gov/resource-center-data-chart-center/interest-rates",
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "equity_risk_premium": {
+      "value": null,
+      "unit": "fraction",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "country_risk_premium": {
+      "value": null,
+      "unit": "fraction",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "notes_yield": {
+      "value": null,
+      "unit": "fraction",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "finance_lease_yield": {
+      "value": null,
+      "unit": "fraction",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "preferred_required_return": {
+      "value": null,
+      "unit": "fraction",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "marginal_debt_tax_rate": {
+      "value": null,
+      "unit": "fraction",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "finance_lease_tax_rate": {
+      "value": null,
+      "unit": "fraction",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "beta": {
+      "value": null,
+      "unit": "multiple",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    },
+    "incremental_non_sbc_shares": {
+      "value": null,
+      "unit": "shares",
+      "as_of": null,
+      "source_url": null,
+      "approved": false,
+      "approved_by": null,
+      "approved_at": null,
+      "rationale": null
+    }
+  },
+  "policies": {
+    "sbc": {
+      "value": "cash_equivalent",
+      "approved": false,
+      "approved_by": null,
+      "rationale": null
+    },
+    "finance_leases": {
+      "value": "capitalized",
+      "approved": false,
+      "approved_by": null,
+      "rationale": null
+    },
+    "operating_leases": {
+      "value": "operating_expense",
+      "approved": false,
+      "approved_by": null,
+      "rationale": null
+    },
+    "preferred": {
+      "value": "full_hybrid_claim",
+      "approved": false,
+      "approved_by": null,
+      "rationale": null
+    },
+    "capital_weights": {
+      "value": "market_value",
+      "approved": false,
+      "approved_by": null,
+      "rationale": null
+    },
+    "class_b_proxy": {
+      "value": "explicit_reviewed_price",
+      "approved": false,
+      "approved_by": null,
+      "rationale": null
+    }
+  },
+  "capital_rollforward_review": {
+    "approved": false,
+    "approved_by": null,
+    "as_of": null,
+    "rationale": null
+  },
+  "ebit_adjustments": [],
+  "after_tax_adjustments": [],
+  "ocf_adjustments": [],
+  "adjustment_sets_reviewed": {
+    "ebit_adjustments": false,
+    "after_tax_adjustments": false,
+    "ocf_adjustments": false
+  },
+  "preferred_conversion_date": {
+    "value": "2029-05-15",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+    "validated": true,
+    "note": "Note 11: on or about; early/special conversion is a separate scenario risk"
+  },
+  "scenario_assumptions": {
+    "pessimistic": {
+      "revenue_growth": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "ebit_margin": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "da_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "owned_capex_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "lease_capex_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "nwc_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_growth": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_roic": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "wacc_adjustment": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "common_weight_path": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "debt_weight_path": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "preferred_weight_path": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "beta_path": {
+        "value": null,
+        "unit": "multiple",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_beta": {
+        "value": null,
+        "unit": "multiple",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_debt_weight": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      }
+    },
+    "base": {
+      "revenue_growth": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "ebit_margin": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "da_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "owned_capex_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "lease_capex_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "nwc_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_growth": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_roic": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "wacc_adjustment": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "common_weight_path": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "debt_weight_path": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "preferred_weight_path": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "beta_path": {
+        "value": null,
+        "unit": "multiple",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_beta": {
+        "value": null,
+        "unit": "multiple",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_debt_weight": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      }
+    },
+    "optimistic": {
+      "revenue_growth": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "ebit_margin": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "da_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "owned_capex_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "lease_capex_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "nwc_ratio": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_growth": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_roic": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "wacc_adjustment": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "common_weight_path": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "debt_weight_path": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "preferred_weight_path": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "beta_path": {
+        "value": null,
+        "unit": "multiple",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_beta": {
+        "value": null,
+        "unit": "multiple",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      },
+      "terminal_debt_weight": {
+        "value": null,
+        "unit": "fraction",
+        "as_of": null,
+        "source_url": null,
+        "approved": false,
+        "approved_by": null,
+        "approved_at": null,
+        "rationale": null
+      }
+    }
+  }
+}
