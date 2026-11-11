@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Investment Monitor — DCF</title>
+<style>
+body {
+  background: #0b1220;
+  color: #f1f5f9;
+  font-family: Arial, sans-serif;
+  padding: 24px;
+}
+main { max-width: 900px; margin: auto; }
+.card {
+  background: #17243a;
+  padding: 20px;
+  border-radius: 14px;
+  margin: 12px 0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+  gap: 12px;
+}
+.value { font-size: 28px; font-weight: bold; }
+small { color: #aabbd0; }
+a { color: #80b7ff; }
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">Voltar ao dashboard</a>
+<h1>Alphabet — Análise Fundamental</h1>
+<p>Modelo DCF de 5 anos</p>
+<div class="card">
+  <strong id="validation-status">Validação pendente</strong>
+  <p>Não utilizar como recomendação de compra ou venda.</p>
+</div>
+<div id="results" class="grid">
+  A carregar...
+</div>
+<p id="updated"></p>
+</main>
+
+<div id="fcf-panel" style="background:#19263d;padding:20px;border-radius:14px;margin:20px 0">
+  <h2>Free Cash Flow — Últimos 12 meses</h2>
+  <p id="fcf-value">A carregar...</p>
+  <p id="fcf-date" style="font-size:13px;color:#aab8cd"></p>
+  <p style="font-size:12px;color:#aab8cd">
+    Dados preliminares da SEC. Não representam necessariamente
+    o fluxo de caixa sustentável da empresa.
+  </p>
+</div>
+
+<script>
+async function loadDCF() {
+  const container = document.getElementById("results");
+  try {
+    const response = await fetch(
+      "dcf_alphabet.json?ts=" + Date.now()
+    );
+    if (!response.ok) throw new Error("Dados indisponíveis");
+
+    const data = await response.json();
+
+    document.getElementById('validation-status').textContent = data.valuation_ready
+      ? 'Dados e pressupostos revistos — estimativa DCF' : 'Validação pendente — sem fair value ou sinal';
+    const labels = {
+      pessimistic: "Pessimista",
+      base: "Base",
+      optimistic: "Otimista"
+    };
+
+    container.textContent = "";
+
+    for (const [key, label] of Object.entries(labels)) {
+      const item = data.scenarios?.[key];
+      if (!item) continue;
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const heading = document.createElement("h3");
+      heading.textContent = label;
+
+      const value = document.createElement("div");
+      value.className = "value";
+      value.textContent =
+        (!data.valuation_ready || !data.verified || item.fair_value == null ? "Avaliação pendente" : Number(item.fair_value).toFixed(2) + " USD");
+
+      const note = document.createElement("small");
+      note.textContent =
+        "Crescimento: " + (item.growth * 100).toFixed(1) +
+        "% | Taxa de desconto: " +
+        (item.discount_rate * 100).toFixed(1) + "% | Crescimento terminal: " + (item.terminal_growth * 100).toFixed(1) + "%";
+
+      const margin = document.createElement('p');
+      margin.textContent = 'Margem de segurança: ' +
+        (data.valuation_ready && item.margin_of_safety_pct != null ? item.margin_of_safety_pct.toFixed(1) + '%' : 'Indisponível');
+      card.append(heading, value, note, margin);
+      container.appendChild(card);
+    }
+
+    document.getElementById("updated").textContent =
+      "Atualizado: " + (data.generated_at || "Desconhecido") + " | " + data.data_status;
+    const details = document.createElement('pre');
+    details.style.whiteSpace = 'pre-wrap';
+    details.textContent = JSON.stringify({
+      estado: data.data_status, bloqueios: data.errors, periodo: data.period_end,
+      fcf_ttm_validado: data.fcf_ttm?.verified ? data.fcf_ttm.value : null,
+      fcf_normalizado: data.fcf_normalized, divida_liquida: data.net_debt,
+      acoes_todas_classes: data.shares_outstanding,
+      revisao: data.review, fonte: data.source, limitacoes: data.warning
+    }, null, 2);
+    container.after(details);
+
+  } catch (error) {
+    container.textContent =
+      "Não foi possível carregar o relatório DCF.";
+  }
+}
+
+loadDCF();
+</script>
+
+<script>
+fetch("dcf_alphabet.json")
+  .then(response => response.json())
+  .then(data => {
+    const fcf = data.fcf_ttm;
+    document.getElementById("fcf-value").textContent =
+      fcf && fcf.verified && Number.isFinite(fcf.value)
+        ? (fcf.value / 1e9).toFixed(3) + " mil milhões USD"
+        : "Dados indisponíveis";
+    document.getElementById("fcf-date").textContent =
+      fcf && fcf.end ? "Dados até: " + fcf.end : "";
+  })
+  .catch(() => {
+    document.getElementById("fcf-value").textContent =
+      "Dados indisponíveis";
+  });
+</script>
+
+</body>
+</html>

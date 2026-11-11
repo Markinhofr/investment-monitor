@@ -1,0 +1,63 @@
+{
+  "audited_at": "2026-11-10",
+  "status": "FACTUAL_RECONCILIATION_ONLY_NOT_FINANCIAL_APPROVAL",
+  "period_end": "2026-09-30",
+  "sources": [
+    {
+      "accession": "0001652044-26-000084",
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm",
+      "sha256": "ca5e898277e399cfb57a87e7b789aa094cf9b8a59f27ce1142bbf8a552302821"
+    },
+    {
+      "accession": "0001652044-26-000018",
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+      "sha256": "1ac2638bc971cca8b7a2fd0dc92c82d8d3786219ae68c532a6d0d9f4983f7659"
+    }
+  ],
+  "units": "USD unless field ends in shares",
+  "facts": {
+    "cash": 56334000000,
+    "long_term_debt_current": 1016000000,
+    "long_term_debt_noncurrent": 125102000000,
+    "finance_lease_current": 1053000000,
+    "finance_lease_noncurrent": 2652000000,
+    "operating_lease_total": 20508000000,
+    "commercial_paper": 0,
+    "common_class_a_shares": 5888000000,
+    "common_class_b_shares": 828000000,
+    "common_class_c_shares": 5578000000,
+    "common_total_shares": 12294000000,
+    "preferred_shares_rounded": 19000000,
+    "preferred_carrying_value": 18023000000,
+    "ocf_fy2025": 164713000000,
+    "capex_fy2025": 91447000000,
+    "ocf_9m2025": 112311000000,
+    "capex_9m2025": 63596000000,
+    "ocf_9m2026": 127149000000,
+    "capex_9m2026": 131953000000,
+    "debt_equity_gain_reversal_9m2026": 126755000000,
+    "sbc_9m2026": 23338000000
+  },
+  "reconciliation": {
+    "gross_notes_carrying": 126118000000,
+    "net_debt_excluding_leases": 69784000000,
+    "net_debt_including_finance_leases": 73489000000,
+    "fcf_fy2025": 73266000000,
+    "fcf_9m2025": 48715000000,
+    "fcf_9m2026": -4804000000,
+    "ocf_ttm": 179551000000,
+    "capex_ttm": 159804000000,
+    "fcf_ttm": 19747000000
+  },
+  "normalized_fcf": null,
+  "valuation_approved": false,
+  "decisions_required": [
+    "FCFF versus FCFE and cost of capital",
+    "Treatment of finance/operating leases",
+    "Preferred stock conversion, dividends and capped calls",
+    "SBC and future common dilution",
+    "Sustainable CapEx, working capital, taxes and extraordinary cash flows",
+    "Treatment of marketable/nonmarketable investment assets without double counting",
+    "Growth/discount/terminal assumptions"
+  ]
+}

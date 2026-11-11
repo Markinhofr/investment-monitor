@@ -1,0 +1,15 @@
+{
+  "period_end": null,
+  "accession": null,
+  "source_url": null,
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "all_share_classes_confirmed": false,
+  "debt_scope_confirmed": false,
+  "extraordinary_cash_flows_reviewed": false,
+  "assumptions_approved": false,
+  "normalized_fcf": null,
+  "normalization_rationale": null,
+  "cash_flow_methodology_approved": false,
+  "methodology_rationale": null
+}
