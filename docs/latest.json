@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-11T01:20:27.554726+00:00",
+  "generated_at": "2026-11-11T01:32:26.512621+00:00",
   "timezone": "Europe/Lisbon",
   "version": "2.0",
-  "source_commit": "c9e0fe219e853e8ae9af2f397a4457667e4a9f1c",
+  "source_commit": "08fbd281510f521b2d936f61d3c876f72cc7c9ea",
   "mode": "weekly",
   "note": "Research only; no trading. Fair values require validated inputs. Alphabet SEC filings monitored; valuation blocked until validated.",
   "positions": [
@@ -138,7 +138,7 @@
   "alphabet": {
     "ticker": "GOOGL",
     "currency": "USD",
-    "generated_at": "2026-11-11T01:20:27.824439+00:00",
+    "generated_at": "2026-11-11T01:32:26.792522+00:00",
     "verified": false,
     "valuation_ready": false,
     "signal": "NO_SIGNAL",
@@ -376,7 +376,7 @@
         "unit": "shares"
       },
       "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
-      "retrieved_at": "2026-11-11T01:20:27.821414+00:00",
+      "retrieved_at": "2026-11-11T01:32:26.788601+00:00",
       "verified": false,
       "balance_sheet": {
         "cash": {

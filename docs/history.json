@@ -790,5 +790,107 @@
         "fair_value": null
       }
     ]
+  },
+  {
+    "generated_at": "2026-11-11T01:32:26.512621+00:00",
+    "status": "VALIDATION_PENDING",
+    "positions": [
+      {
+        "symbol": "VWCE",
+        "quote": null,
+        "assessment": {
+          "label": "DADOS INSUFICIENTES",
+          "discount_pct": null
+        },
+        "fair_value": null
+      },
+      {
+        "symbol": "EM_SMALL_CAP_UNVERIFIED",
+        "quote": null,
+        "assessment": {
+          "label": "DADOS INSUFICIENTES",
+          "discount_pct": null
+        },
+        "fair_value": null
+      },
+      {
+        "symbol": "SEMICONDUCTORS_UNVERIFIED",
+        "quote": null,
+        "assessment": {
+          "label": "DADOS INSUFICIENTES",
+          "discount_pct": null
+        },
+        "fair_value": null
+      },
+      {
+        "symbol": "GOOGL",
+        "quote": {
+          "price": 288.15,
+          "currency": "USD",
+          "as_of": "2026-11-09T14:30:00+00:00",
+          "source": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?range=5d&interval=1d",
+          "type": "delayed_or_last_close"
+        },
+        "assessment": {
+          "label": "SEM FAIR VALUE VERIFICADO",
+          "discount_pct": null
+        },
+        "fair_value": null
+      },
+      {
+        "symbol": "SPGI",
+        "quote": {
+          "price": 471.09,
+          "currency": "USD",
+          "as_of": "2026-11-09T14:30:00+00:00",
+          "source": "https://query1.finance.yahoo.com/v8/finance/chart/SPGI?range=5d&interval=1d",
+          "type": "delayed_or_last_close"
+        },
+        "assessment": {
+          "label": "SEM FAIR VALUE VERIFICADO",
+          "discount_pct": null
+        },
+        "fair_value": null
+      },
+      {
+        "symbol": "V",
+        "quote": {
+          "price": 422.16,
+          "currency": "USD",
+          "as_of": "2026-11-09T14:30:00+00:00",
+          "source": "https://query1.finance.yahoo.com/v8/finance/chart/V?range=5d&interval=1d",
+          "type": "delayed_or_last_close"
+        },
+        "assessment": {
+          "label": "SEM FAIR VALUE VERIFICADO",
+          "discount_pct": null
+        },
+        "fair_value": null
+      },
+      {
+        "symbol": "SU.PA",
+        "quote": {
+          "price": 234.4,
+          "currency": "EUR",
+          "as_of": "2026-11-09T08:00:00+00:00",
+          "source": "https://query1.finance.yahoo.com/v8/finance/chart/SU.PA?range=5d&interval=1d",
+          "type": "delayed_or_last_close"
+        },
+        "assessment": {
+          "label": "SEM FAIR VALUE VERIFICADO",
+          "discount_pct": null
+        },
+        "fair_value": null
+      },
+      {
+        "symbol": "ROG.SW",
+        "quote": null,
+        "assessment": {
+          "label": "DADOS INSUFICIENTES",
+          "discount_pct": null
+        },
+        "fair_value": null
+      }
+    ]
   }
 ]

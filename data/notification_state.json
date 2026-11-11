@@ -1,10 +1,12 @@
 {
-  "digest": "35bfdb337f9bc605f6c4e6a0fbb974fda7ea725959bcccea3e3888a7af2a60eb",
-  "week": null,
+  "digest": "e1f25802830dd3752eec1ac50fd977116988e70976ddfa560d86d1e891e48b99",
+  "week": "2026-46",
   "report": {
-    "generated_at": "2026-11-10T23:22:46.899136+00:00",
+    "generated_at": "2026-11-11T01:32:26.512621+00:00",
     "timezone": "Europe/Lisbon",
-    "mode": "daily",
+    "version": "2.0",
+    "source_commit": "08fbd281510f521b2d936f61d3c876f72cc7c9ea",
+    "mode": "weekly",
     "note": "Research only; no trading. Fair values require validated inputs. Alphabet SEC filings monitored; valuation blocked until validated.",
     "positions": [
       {
@@ -52,9 +54,9 @@
         "owned": false,
         "quantity": null,
         "quote": {
-          "price": 287.38,
+          "price": 288.15,
           "currency": "USD",
-          "as_of": "2026-11-10T14:30:00+00:00",
+          "as_of": "2026-11-09T14:30:00+00:00",
           "source": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?range=5d&interval=1d",
           "type": "delayed_or_last_close"
         },
@@ -71,9 +73,9 @@
         "owned": false,
         "quantity": null,
         "quote": {
-          "price": 473.38,
+          "price": 471.09,
           "currency": "USD",
-          "as_of": "2026-11-10T14:30:00+00:00",
+          "as_of": "2026-11-09T14:30:00+00:00",
           "source": "https://query1.finance.yahoo.com/v8/finance/chart/SPGI?range=5d&interval=1d",
           "type": "delayed_or_last_close"
         },
@@ -90,9 +92,9 @@
         "owned": false,
         "quantity": null,
         "quote": {
-          "price": 423.0,
+          "price": 422.16,
           "currency": "USD",
-          "as_of": "2026-11-10T14:30:00+00:00",
+          "as_of": "2026-11-09T14:30:00+00:00",
           "source": "https://query1.finance.yahoo.com/v8/finance/chart/V?range=5d&interval=1d",
           "type": "delayed_or_last_close"
         },
@@ -139,14 +141,18 @@
     "alphabet": {
       "ticker": "GOOGL",
       "currency": "USD",
-      "generated_at": "2026-11-10T23:22:47.159176+00:00",
+      "generated_at": "2026-11-11T01:32:26.792522+00:00",
       "verified": false,
       "valuation_ready": false,
       "signal": "NO_SIGNAL",
       "data_status": "VALIDATION_PENDING",
       "errors": [
+        "CASH_FLOW_METHODOLOGY_REVIEW_REQUIRED",
         "FILING_REVIEW_REQUIRED",
-        "NORMALIZED_FCF_NOT_VALIDATED"
+        "LEASE_METHODOLOGY_REQUIRED",
+        "NORMALIZED_FCF_NOT_VALIDATED",
+        "UNSUPPORTED_PREFERRED_STOCK",
+        "VALUATION_DISABLED_BY_POLICY"
       ],
       "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
       "period_end": "2026-09-30",
@@ -223,7 +229,9 @@
         "extraordinary_cash_flows_reviewed": false,
         "assumptions_approved": false,
         "normalized_fcf": null,
-        "normalization_rationale": null
+        "normalization_rationale": null,
+        "cash_flow_methodology_approved": false,
+        "methodology_rationale": null
       },
       "fundamentals": {
         "company": "Alphabet",
@@ -371,7 +379,7 @@
           "unit": "shares"
         },
         "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
-        "retrieved_at": "2026-11-10T23:22:47.154231+00:00",
+        "retrieved_at": "2026-11-11T01:32:26.788601+00:00",
         "verified": false,
         "balance_sheet": {
           "cash": {
@@ -409,6 +417,44 @@
             "accession": "0001652044-26-000084",
             "tag": "CommonStockSharesOutstanding",
             "unit": "shares"
+          }
+        },
+        "capital_structure": {
+          "preferred_shares": {
+            "value": 19000000,
+            "start": null,
+            "end": "2026-09-30",
+            "filed": "2026-10-29",
+            "accession": "0001652044-26-000084",
+            "tag": "PreferredStockSharesOutstanding",
+            "unit": "shares"
+          },
+          "preferred_carrying_value": {
+            "value": 18023000000,
+            "start": null,
+            "end": "2026-09-30",
+            "filed": "2026-10-29",
+            "accession": "0001652044-26-000084",
+            "tag": "ConvertiblePreferredStockNonredeemableOrRedeemableIssuerOptionValue",
+            "unit": "USD"
+          },
+          "finance_lease_liability": {
+            "value": 3705000000,
+            "start": null,
+            "end": "2026-09-30",
+            "filed": "2026-10-29",
+            "accession": "0001652044-26-000084",
+            "tag": "FinanceLeaseLiability",
+            "unit": "USD"
+          },
+          "operating_lease_liability": {
+            "value": 20508000000,
+            "start": null,
+            "end": "2026-09-30",
+            "filed": "2026-10-29",
+            "accession": "0001652044-26-000084",
+            "tag": "OperatingLeaseLiability",
+            "unit": "USD"
           }
         },
         "ttm_operating_cash_flow": {

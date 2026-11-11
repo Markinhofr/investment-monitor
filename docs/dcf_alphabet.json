@@ -1,7 +1,7 @@
 {
   "ticker": "GOOGL",
   "currency": "USD",
-  "generated_at": "2026-11-11T01:20:27.824439+00:00",
+  "generated_at": "2026-11-11T01:32:26.792522+00:00",
   "verified": false,
   "valuation_ready": false,
   "signal": "NO_SIGNAL",
@@ -239,7 +239,7 @@
       "unit": "shares"
     },
     "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
-    "retrieved_at": "2026-11-11T01:20:27.821414+00:00",
+    "retrieved_at": "2026-11-11T01:32:26.788601+00:00",
     "verified": false,
     "balance_sheet": {
       "cash": {
